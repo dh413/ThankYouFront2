@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 // export const metadata: Metadata = {
 //   title: "땡큐",
 //   description: "description",
-// };
+// };https://github.com/dh413/thankyoufront2.git
 
 export default function RootLayout({
   children,
