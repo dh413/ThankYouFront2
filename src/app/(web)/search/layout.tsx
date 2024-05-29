@@ -4,9 +4,9 @@ import React from "react";
 
 export default function SearchLayout() {
   return (
-    <div>
+    <>
       <SearchNavigation />
       <SearchText />
-    </div>
+    </>
   );
 }
