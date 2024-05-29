@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-// import { isLoggedInState } from "../recoil/login";
 
 export default function Navigation() {
   const path = usePathname();
@@ -22,7 +21,7 @@ export default function Navigation() {
   const handleLogout = () => {
     Cookies.remove("user");
     setIsLoggedIn(false);
-    window.location.href = "/login"; // Redirect to login page
+    window.location.href = "/login";
   };
 
   return (

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import ClientLayout from "./layouts/ClientLayout";
 import "bootstrap/dist/css/bootstrap.min.css";
+import CommonLayout from "@/layouts/CommonLayout";
 
 export const metadata: Metadata = {
   title: "땡큐",
@@ -15,7 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <CommonLayout>{children}</CommonLayout>
       </body>
     </html>
   );

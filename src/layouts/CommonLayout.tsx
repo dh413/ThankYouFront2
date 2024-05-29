@@ -1,10 +1,10 @@
 "use client";
 
-import Footer from "@/app/components/Footer";
-import Navigation from "@/app/components/Navigation";
+import Footer from "@/components/Footer";
+import Navigation from "@/components/Navigation";
 import { RecoilRoot } from "recoil";
 
-export default function ClientLayout({
+export default function CommonLayout({
   children,
 }: {
   children: React.ReactNode;
