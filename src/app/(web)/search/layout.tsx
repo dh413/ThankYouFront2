@@ -1,7 +1,7 @@
 // /search/layout.tsx
 
-import SearchNavigation from "@/app/components/search/SearchNavigation";
-import SearchText from "@/app/components/search/SearchText";
+import SearchNavigation from "@/components/search/SearchNavigation";
+import SearchText from "@/components/search/SearchText";
 import React from "react";
 
 export default function SearchLayout({

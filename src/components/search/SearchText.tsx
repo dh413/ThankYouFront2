@@ -1,6 +1,6 @@
 "use client";
 
-import { searchedKeywordState } from "@/app/recoil/search";
+import { searchedKeywordState } from "@/recoil/search";
 import { useRecoilState } from "recoil";
 
 export default function SearchText() {

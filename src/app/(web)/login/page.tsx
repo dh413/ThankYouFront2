@@ -1,7 +1,7 @@
 "use client";
 
-import LoginForm from "@/app/components/login/LoginForm";
-import { RecoilRoot } from "recoil";
+import LoginForm from "@/components/login/LoginForm";
+
 
 export default function LoginPage() {
   return <LoginForm />;

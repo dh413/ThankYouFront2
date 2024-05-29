@@ -1,15 +1,14 @@
 "use client";
-import { loginInfoState } from "@/app/recoil/login";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { loginInfoState } from "@/recoil/login";
 
 export default function LoginForm() {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
   const [loginInfo, setloginInfo] = useRecoilState(loginInfoState);
-  // const [isLoggedIn, setisLoggedIn] = useRecoilState(isLoggedInState);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -32,12 +31,11 @@ export default function LoginForm() {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        const result = await response.json(); // 응답을 JSON 형식으로 파싱
+        const result = await response.json();
         if (result.data && result.data.pwdFailedCnt > 0) {
         } else {
           if (result.data) {
             setloginInfo(result.data);
-            // setisLoggedIn(true);
             Cookies.set("user", JSON.stringify(result.data), { expires: 7 });
 
             router.push("/main");
