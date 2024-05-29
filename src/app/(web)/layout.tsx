@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import { RecoilRoot } from "recoil";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 // export const metadata: Metadata = {
 //   title: "땡큐",

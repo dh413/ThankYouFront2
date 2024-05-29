@@ -11,6 +11,8 @@ export default function Navigation() {
   const storedUser = Cookies.get("user");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  console.log("test");
+
   useEffect(() => {
     if (storedUser) {
       setIsLoggedIn(true);
