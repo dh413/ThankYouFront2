@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ClientLayout from "./layouts/ClientLayout";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 export const metadata: Metadata = {
   title: "땡큐",
