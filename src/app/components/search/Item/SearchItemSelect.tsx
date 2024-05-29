@@ -10,28 +10,34 @@ import "../custom-radio.css"; // 커스텀 CSS 파일 import
 import { useState } from "react";
 // import { useState } from "react";
 
-interface InternalState {
+interface SearchItemState {
   searchType: number;
   includeOutOfStock: boolean;
   branchType: number;
   mdLevel: number;
   isDirectDelivery: boolean;
   sortOrder: number;
-  operatorCode: number;
 }
 
+// includeOutOfStock
+// isDirectDelivery
+
 const SearchItemSelect = () => {
-  const [internalState, setInternalState] = useState<InternalState>({
+  const [SearchItemState, setSearchItemState] = useState<SearchItemState>({
     searchType: 0,
     includeOutOfStock: true,
     branchType: 0,
     mdLevel: 0,
     isDirectDelivery: true,
     sortOrder: 0,
-    operatorCode: 0,
   });
-  const handleChange = (key: keyof InternalState, value: any): void => {
-    setInternalState((prevState) => ({
+
+  const itemCheckBoxChange = (key: keyof SearchItemState): void => {
+    itemChange(key, !SearchItemState[key]);
+  };
+
+  const itemChange = (key: keyof SearchItemState, value: any): void => {
+    setSearchItemState((prevState) => ({
       ...prevState,
       [key]: value,
     }));
@@ -49,10 +55,8 @@ const SearchItemSelect = () => {
               type="radio"
               className="form-check-input"
               value={option.value}
-              checked={internalState.searchType === option.value}
-              onChange={(e) =>
-                handleChange("searchType", Number(e.target.value))
-              }
+              checked={SearchItemState.searchType === option.value}
+              onChange={(e) => itemChange("searchType", Number(e.target.value))}
             />
             <span className="custom-radio-span">{option.label}</span>
           </label>
@@ -68,8 +72,8 @@ const SearchItemSelect = () => {
               type="radio"
               className="form-check-input"
               value={option.value}
-              checked={internalState.mdLevel === option.value}
-              onChange={(e) => handleChange("mdLevel", Number(e.target.value))}
+              checked={SearchItemState.mdLevel === option.value}
+              onChange={(e) => itemChange("mdLevel", Number(e.target.value))}
             />
             <span className="custom-radio-span">{option.label}</span>
           </label>
@@ -85,10 +89,8 @@ const SearchItemSelect = () => {
               type="radio"
               className="form-check-input"
               value={option.value}
-              checked={internalState.sortOrder === option.value}
-              onChange={(e) =>
-                handleChange("sortOrder", Number(e.target.value))
-              }
+              checked={SearchItemState.sortOrder === option.value}
+              onChange={(e) => itemChange("sortOrder", Number(e.target.value))}
             />
             <span className="custom-radio-span">{option.label}</span>
           </label>
@@ -104,57 +106,37 @@ const SearchItemSelect = () => {
               type="radio"
               className="form-check-input"
               value={option.value}
-              checked={internalState.branchType === option.value}
-              onChange={(e) =>
-                handleChange("branchType", Number(e.target.value))
-              }
+              checked={SearchItemState.branchType === option.value}
+              onChange={(e) => itemChange("branchType", Number(e.target.value))}
             />
             <span className="custom-radio-span">{option.label}</span>
           </label>
         ))}
       </div>
+      <div className="d-flex flex-wrap">
+        <label className="form-check form-check-inline custom-radio">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            checked={SearchItemState.includeOutOfStock}
+            onChange={() => itemCheckBoxChange("includeOutOfStock")}
+          />
+          <span className="custom-radio-span">보유</span>
+        </label>
+      </div>
+      <div className="d-flex flex-wrap">
+        <label className="form-check form-check-inline custom-radio">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            checked={SearchItemState.isDirectDelivery}
+            onChange={() => itemCheckBoxChange("isDirectDelivery")}
+          />
+          <span className="custom-radio-span">직배송</span>
+        </label>
+      </div>
     </div>
   );
-  // return (
-  //   <div className="container">
-  //     <div className="row">
-  //       <div className="d-flex">
-  //         <div className="col-auto">
-  //           <select className="form-select" value="1">
-  //             {SearchType.map((option) => (
-  //               <option key={option.value} value={option.value}>
-  //                 {option.label}
-  //               </option>
-  //             ))}
-  //           </select>
-  //         </div>
-  //       </div>
-  //     </div>
-  //     <div className="row">
-  //       <div className="d-flex">
-  //         {SearchType.map((option) => (
-  //           <label
-  //             key={option.value}
-  //             className="form-check form-check-inline custom-radio"
-  //           >
-  //             <input
-  //               type="radio"
-  //               className="form-check-input"
-  //               value={option.value}
-  //               // checked={selectedOption === option.value}
-  //               // onChange={() => handleChange(option.value)}
-  //             />
-  //             <span className="custom-radio-span">{option.label}</span>
-  //           </label>
-  //         ))}
-  //       </div>
-  //     </div>
-  //     <div className="col-auto">
-  //       <input type="checkbox" className="form-check-input" value="1" />
-  //       <label className="form-check-label">보유</label>
-  //     </div>
-  //   </div>
-  // );
 };
 
 export default SearchItemSelect;
