@@ -12,13 +12,6 @@ export default function SearchText() {
     setSearchedKeyword(event.target.value);
   };
 
-  const handleKeyDown = (
-    event: React.KeyboardEvent<HTMLInputElement>
-  ): void => {
-    if (event.key === "Enter") {
-      // handleSearch(event);
-    }
-  };
   return (
     <div className="d-flex justify-content-center">
       <div className="input-group" style={{ width: "50%" }}>
@@ -26,7 +19,6 @@ export default function SearchText() {
           className="form-control"
           placeholder="검색어를 입력해 주세요"
           onChange={handleKeywordChange}
-          onKeyDown={handleKeyDown}
           autoFocus
         />
         <button className="btn btn-primary" type="submit">
