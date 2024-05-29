@@ -1,11 +1,8 @@
 "use client";
 
-import { searchedKeywordState } from "@/recoil/search";
-import { useRecoilState } from "recoil";
-
+import { useState } from "react";
 export default function SearchText() {
-  const [searchedKeyword, setSearchedKeyword] =
-    useRecoilState(searchedKeywordState);
+  const [searchedKeyword, setSearchedKeyword] = useState("");
   const handleKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
