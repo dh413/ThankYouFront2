@@ -1,4 +1,4 @@
-export interface AppRoutes {
+export interface NavType {
   URL: {
     [key: string]: string;
   };

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { APP_ROUTES, MAIN_NAV_ITEMS } from "@/constants/routes";
 import { COOKIE_NAME } from "@/constants/cookie";
 import { NavList } from "@/types/common/app";
+import classNames from "classnames";
 
 export default function Navigation() {
   const path = usePathname();
@@ -45,11 +46,11 @@ export default function Navigation() {
           {MAIN_NAV_ITEMS.map((item, index) => {
             const isDisabled = !isLoggedIn && item.requiresAuth;
 
-            const linkClassName = `nav-link ${
-              item.dropdown ? "dropdown-toggle" : ""
-            } ${path === item.url ? "text-primary" : ""} ${
-              isDisabled ? "disabled" : ""
-            }`;
+            const linkClassName = classNames('nav-link', {
+              'dropdown-toggle': item.dropdown,
+              'text-primary': path === item.url,
+              'disabled': isDisabled,
+            });
 
             return (
               <li
@@ -61,8 +62,10 @@ export default function Navigation() {
                   className={linkClassName}
                   id={item.dropdown ? "orderDropdown" : undefined}
                   role={item.dropdown ? "button" : undefined}
-                  data-bs-toggle={item.dropdown ? "dropdown" : undefined}
-                  aria-expanded={item.dropdown ? "false" : undefined}
+                  {...(item.dropdown && {
+                    "data-bs-toggle": "dropdown",
+                    "aria-expanded": "false",
+                  })}
                   aria-disabled={isDisabled}
                 >
                   {item.name}
