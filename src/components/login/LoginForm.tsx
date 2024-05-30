@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { loginInfoState } from "@/recoil/login";
+import { API_ROUTES } from "@/constants/routes";
 
 export default function LoginForm() {
   const [id, setId] = useState("");
@@ -17,16 +18,13 @@ export default function LoginForm() {
       return false;
     } else {
       try {
-        const response = await fetch(
-          "https://tkapi.aladin.co.kr/api/thankyoulogin",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id, pw }),
-          }
-        );
+        const response = await fetch(API_ROUTES.LOGIN, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id, pw }),
+        });
 
         if (!response.ok) {
           throw new Error("Network response was not ok");

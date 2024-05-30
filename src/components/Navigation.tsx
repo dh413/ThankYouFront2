@@ -3,6 +3,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
+import { APP_ROUTES } from "@/constants/routes";
+import { COOKIE_NAME } from "@/constants/cookie";
 
 export default function Navigation() {
   const path = usePathname();
@@ -16,9 +18,9 @@ export default function Navigation() {
   }, [storedUser]);
 
   const handleLogout = () => {
-    Cookies.remove("user");
+    Cookies.remove(COOKIE_NAME);
     setIsLoggedIn(false);
-    router.push("/login");
+    router.push(APP_ROUTES.URL.LOGIN);
   };
 
   return (
@@ -27,88 +29,99 @@ export default function Navigation() {
         <ul className="navbar-nav mx-auto">
           <li className="nav-item">
             <Link
-              href=""
-              className={`nav-link ${path === "" ? "text-primary" : ""}`}
+              href={APP_ROUTES.URL.EXIT}
+              className={`nav-link ${
+                path === APP_ROUTES.URL.EXIT ? "text-primary" : ""
+              }`}
             >
-              종료
+              {APP_ROUTES.NAME.EXIT}
             </Link>
           </li>
+
           <li className="nav-item">
             {isLoggedIn ? (
               <Link
-                href="/login"
+                href={APP_ROUTES.URL.LOGOUT}
                 className={`nav-link ${
-                  path === "/login" ? "text-primary" : ""
+                  path === APP_ROUTES.URL.LOGOUT ? "text-primary" : ""
                 }`}
                 onClick={handleLogout}
               >
-                로그아웃
+                {APP_ROUTES.NAME.LOGOUT}
               </Link>
             ) : (
               <Link
-                href="/login"
+                href={APP_ROUTES.URL.LOGIN}
                 className={`nav-link ${
-                  path === "/login" ? "text-primary" : ""
+                  path === APP_ROUTES.URL.LOGIN ? "text-primary" : ""
                 }`}
               >
-                로그인
+                {APP_ROUTES.NAME.LOGIN}
               </Link>
             )}
           </li>
           <li className="nav-item">
             <Link
-              href="/search"
-              className={`nav-link ${path === "/search" ? "text-primary" : ""}`}
+              href={APP_ROUTES.URL.SEARCH}
+              className={`nav-link ${
+                path === APP_ROUTES.URL.SEARCH ? "text-primary" : ""
+              }`}
             >
-              검색
+              {APP_ROUTES.NAME.SEARCH}
             </Link>
           </li>
           <li className="nav-item">
             <Link
-              href=""
-              className={`nav-link ${path === "" ? "text-primary" : ""}`}
+              href={APP_ROUTES.URL.INBOUND}
+              className={`nav-link ${
+                path === APP_ROUTES.URL.INBOUND ? "text-primary" : ""
+              }`}
             >
-              입고
+              {APP_ROUTES.NAME.INBOUND}
             </Link>
           </li>
           <li className="nav-item">
             <Link
-              href=""
-              className={`nav-link ${path === "" ? "text-primary" : ""}`}
+              href={APP_ROUTES.URL.STOCK}
+              className={`nav-link ${
+                path === APP_ROUTES.URL.STOCK ? "text-primary" : ""
+              }`}
             >
-              재고
+              {APP_ROUTES.NAME.STOCK}
             </Link>
           </li>
-
           <li className="nav-item">
             <Link
-              href=""
-              className={`nav-link ${path === "" ? "text-primary" : ""}`}
+              href={APP_ROUTES.URL.ORDER}
+              className={`nav-link ${
+                path === APP_ROUTES.URL.ORDER ? "text-primary" : ""
+              }`}
             >
-              주문
+              {APP_ROUTES.NAME.ORDER}
             </Link>
           </li>
           <li className="nav-item dropdown">
             <Link
-              href=""
+              href={APP_ROUTES.URL.OTHER}
               className={`nav-link dropdown-toggle ${
-                path === "" ? "text-primary" : ""
+                path === APP_ROUTES.URL.OTHER ? "text-primary" : ""
               }`}
               id="orderDropdown"
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              기타
+              {APP_ROUTES.NAME.OTHER}
             </Link>
           </li>
-
           <li className="nav-item">
             <Link
-              href=""
-              className={`nav-link ${path === "" ? "text-primary" : ""}`}
+              href={APP_ROUTES.URL.CUSTOMERSERVICE}
+              className={`nav-link ${
+                path === APP_ROUTES.URL.CUSTOMERSERVICE ? "text-primary" : ""
+              }`}
             >
-              상담원
+              {APP_ROUTES.NAME.CUSTOMERSERVICE}
             </Link>
           </li>
         </ul>
