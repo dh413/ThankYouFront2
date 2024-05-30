@@ -1,17 +1,14 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 
 export default function Navigation() {
   const path = usePathname();
   const storedUser = Cookies.get("user");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  console.log("test");
-
+  const router = useRouter();
   useEffect(() => {
     if (storedUser) {
       setIsLoggedIn(true);
@@ -21,7 +18,7 @@ export default function Navigation() {
   const handleLogout = () => {
     Cookies.remove("user");
     setIsLoggedIn(false);
-    window.location.href = "/login";
+    router.push("/login");
   };
 
   return (
