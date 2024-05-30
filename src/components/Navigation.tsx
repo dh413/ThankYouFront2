@@ -18,15 +18,13 @@ export default function Navigation() {
     }
   }, [storedUser]);
 
-
-
   const handleLogout = () => {
     Cookies.remove(COOKIE_NAME);
     setIsLoggedIn(false);
     router.push(APP_ROUTES.URL.LOGIN);
   };
 
-  const LOGIN_CHECK_NAV_ITEMS = isLoggedIn
+  const LOGIN_CHECK_NAV_ITEM = isLoggedIn
     ? {
         url: APP_ROUTES.URL.LOGOUT,
         name: APP_ROUTES.NAME.LOGOUT,
@@ -74,17 +72,17 @@ export default function Navigation() {
 
           <li className="nav-item">
             <Link
-              href={LOGIN_CHECK_NAV_ITEMS.url}
+              href={LOGIN_CHECK_NAV_ITEM.url}
               className={`nav-link ${
-                path === LOGIN_CHECK_NAV_ITEMS.url ? "text-primary" : ""
+                path === LOGIN_CHECK_NAV_ITEM.url ? "text-primary" : ""
               }`}
               onClick={
-                LOGIN_CHECK_NAV_ITEMS.onClick === "handleLogout"
+                LOGIN_CHECK_NAV_ITEM.onClick === "handleLogout"
                   ? handleLogout
                   : undefined
               }
             >
-              {LOGIN_CHECK_NAV_ITEMS.name}
+              {LOGIN_CHECK_NAV_ITEM.name}
             </Link>
           </li>
         </ul>
