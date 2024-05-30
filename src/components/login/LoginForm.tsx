@@ -16,7 +16,7 @@ import {
 export default function LoginForm() {
   const [id, setId] = useState("");
   const [pw, setPw] = useState("");
-  const [loginInfo, setloginInfo] = useRecoilState(loginInfoState);
+  const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -40,7 +40,7 @@ export default function LoginForm() {
         if (result.data && result.data.pwdFailedCnt > 0) {
         } else {
           if (result.data) {
-            setloginInfo(result.data);
+            setLoginInfo(result.data);
             Cookies.set(COOKIE_NAME, JSON.stringify(result.data), {
               expires: EXPIRATION_DAYS,
               // TODO :443연결 되면 주석해제

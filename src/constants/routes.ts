@@ -1,5 +1,5 @@
 const setApiRoute = (route: string) => {
-  `${process.env.NEXT_PUBLIC_API_URL}${route}`;
+  return `${process.env.NEXT_PUBLIC_API_URL}${route}`;
 };
 
 export const API_ROUTES = {
