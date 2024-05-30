@@ -1,3 +1,5 @@
+import { AppRoutes, NavList } from "@/types/common/app";
+
 const setApiRoute = (route: string) => {
   return `${process.env.NEXT_PUBLIC_API_URL}${route}`;
 };
@@ -6,7 +8,7 @@ export const API_ROUTES = {
   LOGIN: setApiRoute("/api/thankyoulogin"),
 };
 
-export const APP_ROUTES = {
+export const APP_ROUTES: AppRoutes = {
   URL: {
     EXIT: "/exit",
     MAIN: "/main",
@@ -33,7 +35,7 @@ export const APP_ROUTES = {
   },
 };
 
-export const MAIN_NAV_ITEMS = [
+export const MAIN_NAV_ITEMS: NavList[] = [
   {
     url: APP_ROUTES.URL.EXIT,
     name: APP_ROUTES.NAME.EXIT,
