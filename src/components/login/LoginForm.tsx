@@ -43,7 +43,7 @@ export default function LoginForm() {
             setloginInfo(result.data);
             Cookies.set(COOKIE_NAME, JSON.stringify(result.data), {
               expires: EXPIRATION_DAYS,
-              //443연결 되면 주석해제
+              // TODO :443연결 되면 주석해제
               // secure: COOKIE_SECURE,
               // sameSite: COOKIE_SAME_SITE,
               // path: COOKIE_PATH,
