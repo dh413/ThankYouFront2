@@ -9,15 +9,15 @@ export const API_ROUTES = {
 
 export const APP_ROUTES = {
   URL: {
-    EXIT: "/",
-    LOGOUT: "/",
+    EXIT: "/exit",
+    LOGOUT: "/logout",
     LOGIN: "/login",
-    SEARCH: "/",
-    INBOUND: "/",
-    STOCK: "/",
-    ORDER: "/",
-    OTHER: "/",
-    CUSTOMERSERVICE: "/",
+    SEARCH: "/search",
+    INBOUND: "/inbound",
+    STOCK: "/stock",
+    ORDER: "/order",
+    OTHER: "/other",
+    CUSTOMERSERVICE: "/customerservice",
   },
   NAME: {
     EXIT: "종료",
