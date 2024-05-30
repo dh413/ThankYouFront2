@@ -1,6 +1,5 @@
 const setApiRoute = (route: string) => {
-  const NEXT_PUBLIC_API_URL = "https://tkapi.aladin.co.kr";
-  return `${NEXT_PUBLIC_API_URL}${route}`;
+  `${process.env.NEXT_PUBLIC_API_URL}${route}`;
 };
 
 export const API_ROUTES = {
