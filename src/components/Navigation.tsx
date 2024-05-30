@@ -11,7 +11,7 @@ import classNames from "classnames";
 export default function Navigation() {
   const path = usePathname();
   const storedUser = Cookies.get(COOKIE_NAME);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -46,10 +46,10 @@ export default function Navigation() {
           {MAIN_NAV_ITEMS.map((item, index) => {
             const isDisabled = !isLoggedIn && item.requiresAuth;
 
-            const linkClassName = classNames('nav-link', {
-              'dropdown-toggle': item.dropdown,
-              'text-primary': path === item.url,
-              'disabled': isDisabled,
+            const linkClassName = classNames("nav-link", {
+              "dropdown-toggle": item.dropdown,
+              "text-primary": path === item.url,
+              disabled: isDisabled,
             });
 
             return (
