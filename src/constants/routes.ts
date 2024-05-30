@@ -10,7 +10,7 @@ export const API_ROUTES = {
 export const APP_ROUTES = {
   URL: {
     EXIT: "/exit",
-    LOGOUT: "/logout",
+    LOGOUT: "/",
     LOGIN: "/login",
     SEARCH: "/search",
     INBOUND: "/inbound",
