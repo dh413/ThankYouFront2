@@ -4,7 +4,14 @@ import { useRecoilState } from "recoil";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { loginInfoState } from "@/recoil/login";
-import { API_ROUTES } from "@/constants/routes";
+import { API_ROUTES, APP_ROUTES } from "@/constants/routes";
+import {
+  COOKIE_NAME,
+  COOKIE_PATH,
+  COOKIE_SAME_SITE,
+  COOKIE_SECURE,
+  EXPIRATION_DAYS,
+} from "@/constants/cookie";
 
 export default function LoginForm() {
   const [id, setId] = useState("");
@@ -34,9 +41,15 @@ export default function LoginForm() {
         } else {
           if (result.data) {
             setloginInfo(result.data);
-            Cookies.set("user", JSON.stringify(result.data), { expires: 7 });
+            Cookies.set(COOKIE_NAME, JSON.stringify(result.data), {
+              expires: EXPIRATION_DAYS,
+              //443연결 되면 주석해제
+              // secure: COOKIE_SECURE,
+              // sameSite: COOKIE_SAME_SITE,
+              // path: COOKIE_PATH,
+            });
 
-            router.push("/main");
+            router.push(APP_ROUTES.URL.MAIN);
           } else {
           }
         }
