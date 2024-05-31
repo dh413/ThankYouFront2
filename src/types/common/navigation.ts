@@ -1,4 +1,4 @@
-export interface NavType {
+export interface NavgationType {
   URL: {
     [key: string]: string;
   };
@@ -7,7 +7,7 @@ export interface NavType {
   };
 }
 
-export interface NavInfo {
+export interface NavgationInfo {
   url: string;
   name: string;
   requiresAuth: boolean;

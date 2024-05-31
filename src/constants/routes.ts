@@ -1,4 +1,4 @@
-import { NavInfo, NavType } from "@/types/common/app";
+import { NavgationInfo, NavgationType } from "@/types/common/navigation";
 
 const setApiRoute = (route: string) => {
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}${route}`;
@@ -10,7 +10,7 @@ export const API_ROUTES = {
   LOGIN: setApiRoute("/api/thankyoulogin"),
 };
 
-export const APP_ROUTES: NavType = {
+export const APP_ROUTES: NavgationType = {
   URL: {
     EXIT: "/exit",
     MAIN: "/main",
@@ -37,7 +37,7 @@ export const APP_ROUTES: NavType = {
   },
 };
 
-export const MAIN_NAV_ITEMS: NavInfo[] = [
+export const MAIN_NAV_ITEMS: NavgationInfo[] = [
   {
     url: APP_ROUTES.URL.EXIT,
     name: APP_ROUTES.NAME.EXIT,

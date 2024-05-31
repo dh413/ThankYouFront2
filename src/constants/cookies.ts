@@ -1,4 +1,4 @@
-import { UserCookieConfig } from "@/types/common/api";
+import { UserCookieConfig } from "@/types/common/user";
 
 export const USER_COOKIE_SETTING: UserCookieConfig = {
   expires: 7, //쿠키 7일

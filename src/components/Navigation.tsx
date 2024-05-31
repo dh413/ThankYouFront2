@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { APP_ROUTES, MAIN_NAV_ITEMS } from "@/constants/routes";
 import { CookieKey } from "@/constants/key";
-import { NavInfo } from "@/types/common/app";
+import { NavgationInfo } from "@/types/common/navigation";
 
 export default function Navigation() {
   const path = usePathname();
@@ -27,7 +27,7 @@ export default function Navigation() {
     router.push(APP_ROUTES.URL.LOGIN);
   };
 
-  const LOGIN_CHECK_NAV_ITEM: NavInfo = isLoggedIn
+  const LOGIN_CHECK_NAV_ITEM: NavgationInfo = isLoggedIn
     ? {
         url: APP_ROUTES.URL.LOGOUT,
         name: APP_ROUTES.NAME.LOGOUT,
