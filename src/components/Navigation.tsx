@@ -9,7 +9,9 @@ import { NavInfo } from "@/types/common/app";
 
 export default function Navigation() {
   const path = usePathname();
+
   const storedUser = Cookies.get(CookieKey.User);
+
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
 
