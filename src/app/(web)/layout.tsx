@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import CommonLayout from "@/layouts/CommonLayout";
 
 export const metadata: Metadata = {
-  title: "땡큐",
+  title: "땡큐1",
   description: "description",
 };
 
