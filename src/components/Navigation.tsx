@@ -46,14 +46,7 @@ export default function Navigation() {
         <ul className="navbar-nav mx-auto">
           {MAIN_NAV_ITEMS.map((item, index) => {
             const isDisabled = !isLoggedIn && item.requiresAuth;
-            const linkClassName = [
-              "nav-link",
-              item.dropdown ? "dropdown-toggle" : "",
-              path === item.url ? "text-primary" : "",
-              isDisabled ? "disabled" : "",
-            ]
-              .filter(Boolean)
-              .join(" ");
+            const linkClassName = `nav-link${item.dropdown ? " dropdown-toggle" : ""}${path === item.url ? " text-primary" : ""}${isDisabled ? " disabled" : ""}`;
 
             return (
               <li
