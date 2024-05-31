@@ -45,7 +45,6 @@ const LoginForm = () => {
             });
 
             router.push(APP_ROUTES.URL.MAIN);
-          } else {
           }
         }
       } catch (error) {
