@@ -4,14 +4,13 @@ import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { APP_ROUTES, MAIN_NAV_ITEMS } from "@/constants/routes";
-import classNames from "classnames";
 import { CookieKey } from "@/constants/key";
 import { NavInfo } from "@/types/common/app";
 
 export default function Navigation() {
   const path = usePathname();
   const storedUser = Cookies.get(CookieKey.User);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -45,12 +44,14 @@ export default function Navigation() {
         <ul className="navbar-nav mx-auto">
           {MAIN_NAV_ITEMS.map((item, index) => {
             const isDisabled = !isLoggedIn && item.requiresAuth;
-
-            const linkClassName = classNames("nav-link", {
-              "dropdown-toggle": item.dropdown,
-              "text-primary": path === item.url,
-              disabled: isDisabled,
-            });
+            const linkClassName = [
+              "nav-link",
+              item.dropdown ? "dropdown-toggle" : "",
+              path === item.url ? "text-primary" : "",
+              isDisabled ? "disabled" : "",
+            ]
+              .filter(Boolean)
+              .join(" ");
 
             return (
               <li
