@@ -56,7 +56,7 @@ export default function Navigation() {
             return (
               <li
                 className={`nav-item${item.dropdown ? " dropdown" : ""}`}
-                key={index}
+                key={item.url}
               >
                 <Link
                   href={isDisabled ? "#" : item.url}
