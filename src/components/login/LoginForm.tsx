@@ -6,11 +6,11 @@ import { useRouter } from "next/navigation";
 import { loginInfoState } from "@/recoil/login";
 import { API_ROUTES, APP_ROUTES } from "@/constants/routes";
 import { CookieKey } from "@/constants/key";
-import { userCookieSetting } from "@/constants/cookies";
+import { USER_COOKIE_SETTING } from "@/constants/cookies";
 
-export default function LoginForm() {
-  const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
+const LoginForm = () => {
+  const [id, setId] = useState<string>("");
+  const [pw, setPw] = useState<string>("");
   const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
   const router = useRouter();
 
@@ -37,7 +37,7 @@ export default function LoginForm() {
           if (result.data) {
             setLoginInfo(result.data);
             Cookies.set(CookieKey.User, JSON.stringify(result.data), {
-              expires: userCookieSetting.expires,
+              expires: USER_COOKIE_SETTING.expires,
               // TODO :443연결 되면 주석해제
               // secure: userCookieSetting.secure,
               // sameSite: userCookieSetting.sameSite,
@@ -112,4 +112,6 @@ export default function LoginForm() {
       </div>
     </div>
   );
-}
+};
+
+export default LoginForm;

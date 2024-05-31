@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <div>MainPage</div>;
+  return <div>홈페이지</div>;
 }
