@@ -5,13 +5,8 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { loginInfoState } from "@/recoil/login";
 import { API_ROUTES, APP_ROUTES } from "@/constants/routes";
-import {
-  COOKIE_NAME,
-  COOKIE_PATH,
-  COOKIE_SAME_SITE,
-  COOKIE_SECURE,
-  EXPIRATION_DAYS,
-} from "@/constants/cookie";
+import { CookieKey } from "@/constants/key";
+import { userCookieSetting } from "@/constants/cookies";
 
 export default function LoginForm() {
   const [id, setId] = useState("");
@@ -41,12 +36,12 @@ export default function LoginForm() {
         } else {
           if (result.data) {
             setLoginInfo(result.data);
-            Cookies.set(COOKIE_NAME, JSON.stringify(result.data), {
-              expires: EXPIRATION_DAYS,
+            Cookies.set(CookieKey.User, JSON.stringify(result.data), {
+              expires: userCookieSetting.expires,
               // TODO :443연결 되면 주석해제
-              // secure: COOKIE_SECURE,
-              // sameSite: COOKIE_SAME_SITE,
-              // path: COOKIE_PATH,
+              // secure: userCookieSetting.secure,
+              // sameSite: userCookieSetting.sameSite,
+              // path: userCookieSetting.path,
             });
 
             router.push(APP_ROUTES.URL.MAIN);

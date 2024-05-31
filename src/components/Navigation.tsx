@@ -4,13 +4,13 @@ import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { APP_ROUTES, MAIN_NAV_ITEMS } from "@/constants/routes";
-import { COOKIE_NAME } from "@/constants/cookie";
 import { NavList } from "@/types/common/app";
 import classNames from "classnames";
+import { CookieKey } from "@/constants/key";
 
 export default function Navigation() {
   const path = usePathname();
-  const storedUser = Cookies.get(COOKIE_NAME);
+  const storedUser = Cookies.get(CookieKey.User);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
 
@@ -21,7 +21,7 @@ export default function Navigation() {
   }, [storedUser]);
 
   const handleLogout = () => {
-    Cookies.remove(COOKIE_NAME);
+    Cookies.remove(CookieKey.User);
     setIsLoggedIn(false);
     router.push(APP_ROUTES.URL.LOGIN);
   };
@@ -46,10 +46,10 @@ export default function Navigation() {
           {MAIN_NAV_ITEMS.map((item, index) => {
             const isDisabled = !isLoggedIn && item.requiresAuth;
 
-            const linkClassName = classNames('nav-link', {
-              'dropdown-toggle': item.dropdown,
-              'text-primary': path === item.url,
-              'disabled': isDisabled,
+            const linkClassName = classNames("nav-link", {
+              "dropdown-toggle": item.dropdown,
+              "text-primary": path === item.url,
+              disabled: isDisabled,
             });
 
             return (
