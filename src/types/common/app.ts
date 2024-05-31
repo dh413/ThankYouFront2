@@ -7,10 +7,10 @@ export interface NavType {
   };
 }
 
-export interface NavList {
+export interface NavInfo {
   url: string;
   name: string;
   requiresAuth: boolean;
   dropdown?: boolean;
-  onClick?: string;
+  onClick?: () => void;
 }

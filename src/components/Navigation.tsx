@@ -4,9 +4,9 @@ import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { APP_ROUTES, MAIN_NAV_ITEMS } from "@/constants/routes";
-import { NavList } from "@/types/common/app";
 import classNames from "classnames";
 import { CookieKey } from "@/constants/key";
+import { NavInfo } from "@/types/common/app";
 
 export default function Navigation() {
   const path = usePathname();
@@ -26,12 +26,12 @@ export default function Navigation() {
     router.push(APP_ROUTES.URL.LOGIN);
   };
 
-  const LOGIN_CHECK_NAV_ITEM: NavList = isLoggedIn
+  const LOGIN_CHECK_NAV_ITEM: NavInfo = isLoggedIn
     ? {
         url: APP_ROUTES.URL.LOGOUT,
         name: APP_ROUTES.NAME.LOGOUT,
         requiresAuth: true,
-        onClick: "handleLogout",
+        onClick: handleLogout,
       }
     : {
         url: APP_ROUTES.URL.LOGIN,
@@ -80,11 +80,7 @@ export default function Navigation() {
               className={`nav-link ${
                 path === LOGIN_CHECK_NAV_ITEM.url ? "text-primary" : ""
               }`}
-              onClick={
-                LOGIN_CHECK_NAV_ITEM.onClick === "handleLogout"
-                  ? handleLogout
-                  : undefined
-              }
+              onClick={LOGIN_CHECK_NAV_ITEM.onClick ?? undefined}
             >
               {LOGIN_CHECK_NAV_ITEM.name}
             </Link>

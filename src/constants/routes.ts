@@ -1,4 +1,4 @@
-import { NavList, NavType } from "@/types/common/app";
+import { NavInfo, NavType } from "@/types/common/app";
 
 const setApiRoute = (route: string) => {
   const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}${route}`;
@@ -37,7 +37,7 @@ export const APP_ROUTES: NavType = {
   },
 };
 
-export const MAIN_NAV_ITEMS: NavList[] = [
+export const MAIN_NAV_ITEMS: NavInfo[] = [
   {
     url: APP_ROUTES.URL.EXIT,
     name: APP_ROUTES.NAME.EXIT,
