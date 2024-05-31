@@ -1,10 +1,14 @@
-"use client";
-
 import type { Metadata } from "next";
-import { RecoilRoot } from "recoil";
+
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+import CommonLayout from "@/layouts/CommonLayout";
+
+export const metadata: Metadata = {
+  title: "땡큐",
+  description: "description",
+};
+
 
 export default function RootLayout({
   children,
@@ -14,11 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <RecoilRoot>
-          <Navigation />
-          {children}
-          <Footer />
-        </RecoilRoot>
+        <CommonLayout>{children}</CommonLayout>
       </body>
     </html>
   );

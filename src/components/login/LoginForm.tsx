@@ -5,10 +5,14 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { loginInfoState } from "@/recoil/login";
 
-export default function LoginForm() {
-  const [id, setId] = useState("");
-  const [pw, setPw] = useState("");
-  const [loginInfo, setloginInfo] = useRecoilState(loginInfoState);
+import { API_ROUTES, APP_ROUTES } from "@/constants/routes";
+import { CookieKey } from "@/constants/key";
+import { USER_COOKIE_SETTING } from "@/constants/cookies";
+
+const LoginForm = () => {
+  const [id, setId] = useState<string>("");
+  const [pw, setPw] = useState<string>("");
+  const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -17,16 +21,13 @@ export default function LoginForm() {
       return false;
     } else {
       try {
-        const response = await fetch(
-          "https://tkapi.aladin.co.kr/api/thankyoulogin",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ id, pw }),
-          }
-        );
+        const response = await fetch(API_ROUTES.LOGIN, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id, pw }),
+        });
 
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -35,10 +36,16 @@ export default function LoginForm() {
         if (result.data && result.data.pwdFailedCnt > 0) {
         } else {
           if (result.data) {
-            setloginInfo(result.data);
-            Cookies.set("user", JSON.stringify(result.data), { expires: 7 });
+            setLoginInfo(result.data);
+            Cookies.set(CookieKey.User, JSON.stringify(result.data), {
+              expires: USER_COOKIE_SETTING.expires,
+              // TODO :443연결 되면 주석해제
+              // secure: userCookieSetting.secure,
+              // sameSite: userCookieSetting.sameSite,
+              // path: userCookieSetting.path,
+            });
 
-            router.push("/main");
+            router.push(APP_ROUTES.URL.MAIN);
           } else {
           }
         }
@@ -106,4 +113,6 @@ export default function LoginForm() {
       </div>
     </div>
   );
-}
+};
+
+export default LoginForm;
