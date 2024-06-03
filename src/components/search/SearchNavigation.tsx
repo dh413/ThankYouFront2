@@ -15,7 +15,7 @@ const SearchNavigation = () => {
             <li className="nav-item" key={item.url}>
               <Link
                 href={item.url}
-                className={`nav-link ${path === item.url ? "text-primary" : ""}`}
+                className={`nav-link${path === item.url ? " text-primary" : ""}`}
               >
                 {item.name}
               </Link>

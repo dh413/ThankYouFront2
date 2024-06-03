@@ -44,7 +44,7 @@ export default function Navigation() {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <ul className="navbar-nav mx-auto">
-          {MAIN_NAVIGATION_ITEMS.map((item, index) => {
+          {MAIN_NAVIGATION_ITEMS.map((item) => {
             const isDisabled = !isLoggedIn && item.requiresAuth;
             const linkClassName = `nav-link${item.dropdown ? " dropdown-toggle" : ""}${path === item.url ? " text-primary" : ""}${isDisabled ? " disabled" : ""}`;
 
