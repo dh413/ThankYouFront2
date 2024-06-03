@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 
 import { SEARCH_NAVIGATION_ITEMS } from "@/constants/routes";
 import Link from "next/link";
