@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
-import { APP_ROUTES, MAIN_NAV_ITEMS } from "@/constants/routes";
+import { APP_ROUTES, MAIN_NAVIGATION_ITEMS } from "@/constants/routes";
 import { CookieKey } from "@/constants/key";
 import { NavgationInfo } from "@/types/common/navigation";
 
@@ -44,7 +44,7 @@ export default function Navigation() {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
         <ul className="navbar-nav mx-auto">
-          {MAIN_NAV_ITEMS.map((item, index) => {
+          {MAIN_NAVIGATION_ITEMS.map((item, index) => {
             const isDisabled = !isLoggedIn && item.requiresAuth;
             const linkClassName = `nav-link${item.dropdown ? " dropdown-toggle" : ""}${path === item.url ? " text-primary" : ""}${isDisabled ? " disabled" : ""}`;
 
