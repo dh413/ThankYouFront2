@@ -7,11 +7,11 @@ import Item from "@/components/search/Item";
 import Order from "@/components/search/Order";
 import Publisher from "@/components/search/Publisher";
 import WholeSaler from "@/components/search/WholeSaler";
-import { SEARCH_ROUTES } from "@/constants/routes";
+import { APP_ROUTES, SEARCH_ROUTES } from "@/constants/routes";
 import { PageProps } from "@/types/search/page";
 
 const SearchPage = ({ params }: PageProps) => {
-  const SELECT_URL = "/search/" + params.pagename;
+  const SELECT_URL = APP_ROUTES.URL.SEARCH + "/" + params.pagename;
 
   return (
     <div>
