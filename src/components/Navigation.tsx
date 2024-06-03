@@ -6,14 +6,14 @@ import { useEffect, useState } from "react";
 import { APP_ROUTES, MAIN_NAVIGATION_ITEMS } from "@/constants/routes";
 import { CookieKey } from "@/constants/key";
 import { NavgationInfo } from "@/types/common/navigation";
+import { getBasePath } from "@/utils/util";
 
 export default function Navigation() {
   const path = usePathname();
-
   const storedUser = Cookies.get(CookieKey.User);
-
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
+  const basePath = getBasePath(path);
 
   useEffect(() => {
     if (storedUser) {
@@ -46,7 +46,7 @@ export default function Navigation() {
         <ul className="navbar-nav mx-auto">
           {MAIN_NAVIGATION_ITEMS.map((item) => {
             const isDisabled = !isLoggedIn && item.requiresAuth;
-            const linkClassName = `nav-link${item.dropdown ? " dropdown-toggle" : ""}${path === item.url ? " text-primary" : ""}${isDisabled ? " disabled" : ""}`;
+            const linkClassName = `nav-link${item.dropdown ? " dropdown-toggle" : ""}${basePath === item.url ? " text-primary" : ""}${isDisabled ? " disabled" : ""}`;
 
             return (
               <li
