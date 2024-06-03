@@ -1,5 +1,6 @@
 import { RadioProps } from "@/types/search/common/type";
 import React from "react";
+import "@/css/search/styles.css";
 
 const Radio: React.FC<RadioProps> = ({
   options,

@@ -1,5 +1,6 @@
 import { CheckboxProps } from "@/types/search/common/type";
 import React from "react";
+import "@/css/search/styles.css";
 
 const CheckBox: React.FC<CheckboxProps> = ({ label, checked, onChange }) => {
   return (
