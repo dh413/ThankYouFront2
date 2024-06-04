@@ -2,6 +2,7 @@
 
 import Checkbox from "@/components/common/CheckBox";
 import Radio from "@/components/common/Radio";
+import { SEARCH } from "@/constants/search";
 import {
   BRANCH_TYPE,
   MD_LEVEL,
@@ -13,61 +14,77 @@ import { FC } from "react";
 
 interface ItemFilterProps {
   searchItemState: SearchItemState;
-  filterChange: (key: keyof SearchItemState, value: any) => void;
-  filterCheckBoxChange: (key: keyof SearchItemState) => void;
+  changeFilter: (key: keyof SearchItemState, value: any) => void;
+  changeCheckBoxFilter: (key: keyof SearchItemState) => void;
 }
 
 const Itemfilter: FC<ItemFilterProps> = ({
   searchItemState,
-  filterChange,
-  filterCheckBoxChange,
+  changeFilter,
+  changeCheckBoxFilter,
 }) => {
   return (
     <div className="row">
       <div className="col-12 search-group">
         <Radio
           options={SEARCH_TYPE}
-          name="searchType"
+          name={SEARCH.SEARCH_TYPE}
           selectedValue={searchItemState.searchType}
-          onChange={(value) => filterChange("searchType", value)}
+          onChange={(value) =>
+            changeFilter(SEARCH.SEARCH_TYPE as keyof SearchItemState, value)
+          }
         />
       </div>
       <div className="col-12 search-group">
         <Radio
           options={MD_LEVEL}
-          name="mdLevel"
+          name={SEARCH.MD_LEVEL}
           selectedValue={searchItemState.mdLevel}
-          onChange={(value) => filterChange("mdLevel", value)}
+          onChange={(value) =>
+            changeFilter(SEARCH.MD_LEVEL as keyof SearchItemState, value)
+          }
         />
       </div>
       <div className="col-12 search-group">
         <Radio
           options={SORT_ORDER}
-          name="sortOrder"
+          name={SEARCH.SORT_ORDER}
           selectedValue={searchItemState.sortOrder}
-          onChange={(value) => filterChange("sortOrder", value)}
+          onChange={(value) =>
+            changeFilter(SEARCH.SORT_ORDER as keyof SearchItemState, value)
+          }
         />
       </div>
       <div className="col-12 search-group">
         <Radio
           options={BRANCH_TYPE}
-          name="branchType"
+          name={SEARCH.BRANCH_TYPE}
           selectedValue={searchItemState.branchType}
-          onChange={(value) => filterChange("branchType", value)}
+          onChange={(value) =>
+            changeFilter(SEARCH.BRANCH_TYPE as keyof SearchItemState, value)
+          }
         />
       </div>
       <div className="col-12 search-group">
         <Checkbox
           label="보유"
           checked={searchItemState.includeOutOfStock}
-          onChange={() => filterCheckBoxChange("includeOutOfStock")}
+          onChange={() =>
+            changeCheckBoxFilter(
+              SEARCH.INCLUDE_OUT_OF_STOCK as keyof SearchItemState
+            )
+          }
         />
       </div>
       <div className="col-12 search-group">
         <Checkbox
           label="직배송"
           checked={searchItemState.isDirectDelivery}
-          onChange={() => filterCheckBoxChange("isDirectDelivery")}
+          onChange={() =>
+            changeCheckBoxFilter(
+              SEARCH.IS_DIRECT_DELIVERY as keyof SearchItemState
+            )
+          }
         />
       </div>
     </div>

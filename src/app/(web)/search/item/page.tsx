@@ -43,14 +43,14 @@ export default function SearchItemPage() {
     }
   };
 
-  const filterChange = (key: keyof SearchItemState, value: any): void => {
+  const changeFilter = (key: keyof SearchItemState, value: any): void => {
     setSearchItemState((prevState) => ({
       ...prevState,
       [key]: value,
     }));
   };
 
-  const filterCheckBoxChange = (key: keyof SearchItemState): void => {
+  const changeCheckBoxFilter = (key: keyof SearchItemState): void => {
     setSearchItemState((prevState) => ({
       ...prevState,
       [key]: !prevState[key],
@@ -66,8 +66,8 @@ export default function SearchItemPage() {
       />
       <Itemfilter
         searchItemState={searchItemState}
-        filterChange={filterChange}
-        filterCheckBoxChange={filterCheckBoxChange}
+        changeFilter={changeFilter}
+        changeCheckBoxFilter={changeCheckBoxFilter}
       />
       <ItemResult />
       <ItemFooter />
