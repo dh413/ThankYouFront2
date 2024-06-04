@@ -20,14 +20,11 @@ export default function Navigation() {
 
   useEffect(() => {
     if (storedUser) {
-      try {
         const userObject = JSON.parse(storedUser);
-        setOperatorCode(userObject.operatorCode);
-
-        setIsLoggedIn(true);
-      } catch (error) {
-        console.log("코드 없음");
-      }
+        if(userObject && userObject.operatorCode){
+          setOperatorCode(userObject.operatorCode);
+          setIsLoggedIn(true);
+        }
     }
   }, [storedUser]);
 
