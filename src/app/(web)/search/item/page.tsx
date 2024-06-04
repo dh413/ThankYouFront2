@@ -19,7 +19,7 @@ export default function SearchItemPage() {
     isDirectDelivery: true,
     sortOrder: 0,
   });
-  const [isResultViewState, setIsResultViewState] = useState<boolean>(false);
+  const [isResultView, setIsResultView] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -40,7 +40,7 @@ export default function SearchItemPage() {
         isDirectDelivery: searchItemState.isDirectDelivery.toString(),
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
-      setIsResultViewState(true);
+      setIsResultView(true);
 
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
@@ -72,7 +72,7 @@ export default function SearchItemPage() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      {isResultViewState && <ItemResult />}
+      {isResultView && <ItemResult />}
       <ItemFooter />
     </>
   );
