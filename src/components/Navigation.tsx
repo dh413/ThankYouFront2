@@ -17,7 +17,9 @@ export default function Navigation() {
 
   useEffect(() => {
     if (storedUser) {
+
       setIsLoggedIn(true);
+      
     }
   }, [storedUser]);
 

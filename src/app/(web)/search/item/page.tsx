@@ -1,13 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Itemfilter from "@/components/search/Item/ItemFilter";
 import ItemFooter from "@/components/search/Item/ItemFooter";
 import ItemResult from "@/components/search/Item/ItemResult";
 import { SearchItemState } from "@/types/search/item/type";
-import { useRouter } from "next/navigation";
-import { SEARCH_ROUTES } from "@/constants/routes";
+import { API_ROUTES, SEARCH_ROUTES } from "@/constants/routes";
 import SearchText from "@/components/search/SearchText";
+import { useRouter, useSearchParams } from "next/navigation";
+import Cookies from "js-cookie";
+import { CookieKey } from "@/constants/key";
 
 export default function SearchItemPage() {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -19,8 +21,16 @@ export default function SearchItemPage() {
     isDirectDelivery: true,
     sortOrder: 0,
   });
-  const router = useRouter();
+  const storedUser = Cookies.get(CookieKey.User);
 
+  const [resultViewState, setResultViewState] = useState<boolean>(false);
+
+  const router = useRouter();
+  const params = useSearchParams();
+
+  // if (params.size === 7) {
+  //   console.log("검색했냐옹");
+  // }
   const searchKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -57,6 +67,14 @@ export default function SearchItemPage() {
     }));
   };
 
+  useEffect(() => {
+    if (params.get("keyword")) {
+      setResultViewState(true);
+    } else {
+      setResultViewState(false);
+    }
+  }, [params]);
+
   return (
     <>
       <SearchText
@@ -69,7 +87,7 @@ export default function SearchItemPage() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      <ItemResult />
+      {resultViewState && <ItemResult />}
       <ItemFooter />
     </>
   );
