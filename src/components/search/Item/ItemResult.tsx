@@ -41,9 +41,9 @@ const ItemResult = () => {
     ]
   );
 
-  const { searchResult, loading, error } = useGetSearchItem(searchData);
+  const { searchResult, isLoading, error } = useGetSearchItem(searchData);
 
-  if (loading) {
+  if (isLoading) {
     return <div>검색중</div>;
   }
 
