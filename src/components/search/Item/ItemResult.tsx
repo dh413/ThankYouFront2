@@ -19,7 +19,7 @@ const ItemResult = () => {
   const mdLevel = params.get(SEARCH.MD_LEVEL);
   const operatorCode = useRecoilValue(operatorCodeState);
 
-  const searchData:SearchData = useMemo(
+  const searchData: SearchData = useMemo(
     () => ({
       searchType,
       operatorCode,
@@ -53,21 +53,17 @@ const ItemResult = () => {
 
   return (
     <div className="container">
-      <div className="row">
-        <div className="col-12">
-          <div className="horizontal-scroll-container">
-            <ul
-              className="list-inline horizontal-scroll"
-              style={{ display: "flex", flexWrap: "nowrap" }}
-            >
-              {COLUMN_TITLES.map((title) => (
-                <li className="list-inline-item" key={title}>
-                  {title}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+      <div className="horizontal-scroll-container">
+        <ul
+          className="list-inline horizontal-scroll"
+          style={{ display: "flex", flexWrap: "nowrap" }}
+        >
+          {COLUMN_TITLES.map((title) => (
+            <li className="list-inline-item" key={title}>
+              {title}
+            </li>
+          ))}
+        </ul>
       </div>
 
       {searchResult?.data.map((item: SearchResultDto) => (
