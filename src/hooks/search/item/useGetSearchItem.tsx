@@ -6,13 +6,13 @@ const useGetSearchItem = (searchData: any) => {
   const [searchResult, setSearchResult] = useState<SearchResultDto | null>(
     null
   );
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
-        setLoading(true);
+        setIsLoading(true);
         setError(null);
 
         const response = await fetch(API_ROUTES.SEARCH_ITEM, {
@@ -29,11 +29,11 @@ const useGetSearchItem = (searchData: any) => {
       } catch (error) {
         setError("API에러");
       } finally {
-        setLoading(false);
+        setIsLoading(false);
       }
     };
     fetchSearchResults();
   }, [searchData]);
-  return { searchResult, loading, error };
+  return { searchResult, isLoading, error };
 };
 export default useGetSearchItem;
