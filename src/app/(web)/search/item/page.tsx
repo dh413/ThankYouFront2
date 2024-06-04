@@ -7,8 +7,7 @@ import ItemResult from "@/components/search/Item/ItemResult";
 import { SearchItemState } from "@/types/search/item/type";
 import { SEARCH_ROUTES } from "@/constants/routes";
 import SearchText from "@/components/search/SearchText";
-import { useRouter, useSearchParams } from "next/navigation";
-import { SEARCH } from "@/constants/search";
+import { useRouter } from "next/navigation";
 
 export default function SearchItemPage() {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -20,7 +19,7 @@ export default function SearchItemPage() {
     isDirectDelivery: true,
     sortOrder: 0,
   });
-  const [resultViewState, setResultViewState] = useState<boolean>(false);
+  const [isResultViewState, setIsResultViewState] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -41,7 +40,7 @@ export default function SearchItemPage() {
         isDirectDelivery: searchItemState.isDirectDelivery.toString(),
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
-      setResultViewState(true);
+      setIsResultViewState(true);
 
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
@@ -73,7 +72,7 @@ export default function SearchItemPage() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      {resultViewState && <ItemResult />}
+      {isResultViewState && <ItemResult />}
       <ItemFooter />
     </>
   );
