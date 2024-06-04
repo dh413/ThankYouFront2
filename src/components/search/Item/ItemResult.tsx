@@ -20,14 +20,13 @@ const ItemResult = () => {
 
   const searchData = useMemo(
     () => ({
-      searchType: searchType,
-      operatorCode: operatorCode,
-      searchValue: keyword,
-      sortOrder: sortOrder,
-      branchType: branchType,
-      includeOutOfStock: includeOutOfStock,
-      mdLevel: mdLevel,
-      isDirectDelivery: isDirectDelivery,
+      searchType,
+      operatorCode,
+      sortOrder,
+      branchType,
+      includeOutOfStock,
+      mdLevel,
+      isDirectDelivery,
     }),
     [
       searchType,
