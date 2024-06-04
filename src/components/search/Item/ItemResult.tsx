@@ -1,8 +1,10 @@
 import { CookieKey } from "@/constants/key";
 import useGetSearchResult from "@/hooks/search/item/useGetSearchItem";
+import { operatorCodeState } from "@/recoil/search";
 import { COLUMN_TITLES } from "@/types/search/item/type";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
 const ItemResult = () => {
   // const [keyword, setKeyword] = useState<string | null>(null);
@@ -14,6 +16,26 @@ const ItemResult = () => {
   const branchType = params.get("branchType");
   const isDirectDelivery = params.get("isDirectDelivery");
   const sortOrder = params.get("sortOrder");
+  const mdLevel = params.get("mdLevel");
+  const operatorCode = useRecoilValue(operatorCodeState);
+
+  const searchData = {
+    searchType: searchType,
+    operatorCode: operatorCode,
+    searchValue: keyword,
+    sortOrder: sortOrder,
+    branchType: branchType,
+    includeOutOfStock: includeOutOfStock,
+    mdLevel: mdLevel,
+    isDirectDelivery: isDirectDelivery,
+  };
+  const response = fetch("https://tkapi.aladin.co.kr/api/thankyousearch", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(searchData),
+  });
 
   console.log(keyword);
   console.log(searchType);
@@ -21,7 +43,7 @@ const ItemResult = () => {
   console.log(branchType);
   console.log(isDirectDelivery);
   console.log(sortOrder);
-
+  console.log(operatorCode);
   // useEffect(() => {
   //   if (params) {
   //     params.forEach((value, key) => {
