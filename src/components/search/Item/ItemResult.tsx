@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { SearchResultDto } from "@/types/search/dtos";
 import { SEARCH } from "@/constants/search";
+import { SearchData } from "@/types/search/common/type";
 
 const ItemResult = () => {
   const params = useSearchParams();
@@ -18,7 +19,7 @@ const ItemResult = () => {
   const mdLevel = params.get(SEARCH.MD_LEVEL);
   const operatorCode = useRecoilValue(operatorCodeState);
 
-  const searchData = useMemo(
+  const searchData:SearchData = useMemo(
     () => ({
       searchType,
       operatorCode,

@@ -1,8 +1,12 @@
 import { API_ROUTES } from "@/constants/routes";
+import { SearchData } from "@/types/search/common/type";
 import { SearchResultDto } from "@/types/search/dtos";
 import { useState, useEffect } from "react";
 
-const useGetSearchItem = (searchData: any) => {
+
+
+
+const useGetSearchItem = (searchData:SearchData) => {
   const [searchResult, setSearchResult] = useState<SearchResultDto | null>(
     null
   );
