@@ -8,8 +8,6 @@ import { SearchItemState } from "@/types/search/item/type";
 import { SEARCH_ROUTES } from "@/constants/routes";
 import SearchText from "@/components/search/SearchText";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useRecoilValue } from "recoil";
-import { operatorCodeState } from "@/recoil/search";
 import { SEARCH } from "@/constants/search";
 
 export default function SearchItemPage() {
@@ -25,7 +23,6 @@ export default function SearchItemPage() {
   const [resultViewState, setResultViewState] = useState<boolean>(false);
 
   const router = useRouter();
-  const params = useSearchParams();
 
   const searchKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -44,6 +41,7 @@ export default function SearchItemPage() {
         isDirectDelivery: searchItemState.isDirectDelivery.toString(),
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
+      setResultViewState(true);
 
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
@@ -62,22 +60,6 @@ export default function SearchItemPage() {
       [key]: !prevState[key],
     }));
   };
-
-  useEffect(() => {
-    if (
-      params.get(SEARCH.KEYWORD) &&
-      params.get(SEARCH.BRANCH_TYPE) &&
-      params.get(SEARCH.INCLUDE_OUT_OF_STOCK) &&
-      params.get(SEARCH.IS_DIRECT_DELIVERY) &&
-      params.get(SEARCH.MD_LEVEL) &&
-      params.get(SEARCH.SEARCH_TYPE) &&
-      params.get(SEARCH.SORT_ORDER)
-    ) {
-      setResultViewState(true);
-    } else {
-      setResultViewState(false);
-    }
-  }, [params]);
 
   return (
     <>
