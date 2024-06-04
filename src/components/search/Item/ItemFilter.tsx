@@ -2,6 +2,7 @@
 
 import Checkbox from "@/components/common/CheckBox";
 import Radio from "@/components/common/Radio";
+import { SEARCH } from "@/constants/search";
 import {
   BRANCH_TYPE,
   MD_LEVEL,
@@ -9,83 +10,80 @@ import {
   SORT_ORDER,
   SearchItemState,
 } from "@/types/search/item/type";
-import { useState } from "react";
+import { FC } from "react";
 
-const Itemfilter = () => {
-  const [searchItemState, setSearchItemState] = useState<SearchItemState>({
-    searchType: 0,
-    includeOutOfStock: true,
-    branchType: 0,
-    mdLevel: 0,
-    isDirectDelivery: true,
-    sortOrder: 0,
-  });
+interface ItemFilterProps {
+  searchItemState: SearchItemState;
+  changeFilter: (key: keyof SearchItemState, value: any) => void;
+  changeCheckBoxFilter: (key: keyof SearchItemState) => void;
+}
 
-  const itemChange = (key: keyof SearchItemState, value: any): void => {
-    setSearchItemState((prevState) => ({
-      ...prevState,
-      [key]: value,
-    }));
-  };
+const Itemfilter: FC<ItemFilterProps> = ({
+  searchItemState,
+  changeFilter,
+  changeCheckBoxFilter,
+}) => {
+  const radioConfigs = [
+    {
+      options: SEARCH_TYPE,
+      name: SEARCH.SEARCH_TYPE,
+      selectedValue: searchItemState.searchType,
+    },
+    {
+      options: MD_LEVEL,
+      name: SEARCH.MD_LEVEL,
+      selectedValue: searchItemState.mdLevel,
+    },
+    {
+      options: SORT_ORDER,
+      name: SEARCH.SORT_ORDER,
+      selectedValue: searchItemState.sortOrder,
+    },
+    {
+      options: BRANCH_TYPE,
+      name: SEARCH.BRANCH_TYPE,
+      selectedValue: searchItemState.branchType,
+    },
+  ];
 
-  const itemCheckBoxChange = (key: keyof SearchItemState): void => {
-    setSearchItemState((prevState) => ({
-      ...prevState,
-      [key]: !prevState[key],
-    }));
-  };
-
+  const checkboxConfigs = [
+    {
+      label: "보유",
+      checked: searchItemState.includeOutOfStock,
+      name: SEARCH.INCLUDE_OUT_OF_STOCK,
+    },
+    {
+      label: "직배송",
+      checked: searchItemState.isDirectDelivery,
+      name: SEARCH.IS_DIRECT_DELIVERY,
+    },
+  ];
   return (
-
     <div className="row">
-      <div className="col-12 search-group">
-        <Radio
-          options={SEARCH_TYPE}
-          name="searchType"
-          selectedValue={searchItemState.searchType}
-          onChange={(value) => itemChange("searchType", value)}
-        />
-      </div>
-      <div className="col-12 search-group">
-      <Radio
-        options={MD_LEVEL}
-        name="mdLevel"
-        selectedValue={searchItemState.mdLevel}
-        onChange={(value) => itemChange("mdLevel", value)}
-      />
-      </div>
-      <div className="col-12 search-group">
-      <Radio
-        options={SORT_ORDER}
-        name="sortOrder"
-        selectedValue={searchItemState.sortOrder}
-        onChange={(value) => itemChange("sortOrder", value)}
-      />
-      </div>
+      {radioConfigs.map((config) => (
+        <div className="col-12 search-group" key={config.name}>
+          <Radio
+            options={config.options}
+            name={config.name}
+            selectedValue={config.selectedValue}
+            onChange={(value) =>
+              changeFilter(config.name as keyof SearchItemState, value)
+            }
+          />
+        </div>
+      ))}
 
-      <div className="col-12 search-group">
-      <Radio
-        options={BRANCH_TYPE}
-        name="branchType"
-        selectedValue={searchItemState.branchType}
-        onChange={(value) => itemChange("branchType", value)}
-      />
-      </div>
-
-      <div className="col-12 search-group">
-      <Checkbox
-        label="보유"
-        checked={searchItemState.includeOutOfStock}
-        onChange={() => itemCheckBoxChange("includeOutOfStock")}
-      />
-      </div>
-      <div className="col-12 search-group">
-      <Checkbox
-        label="직배송"
-        checked={searchItemState.isDirectDelivery}
-        onChange={() => itemCheckBoxChange("isDirectDelivery")}
-      />
-      </div>
+      {checkboxConfigs.map((config) => (
+        <div className="col-12 search-group" key={config.name}>
+          <Checkbox
+            label={config.label}
+            checked={config.checked}
+            onChange={() =>
+              changeCheckBoxFilter(config.name as keyof SearchItemState)
+            }
+          />
+        </div>
+      ))}
     </div>
   );
 };
