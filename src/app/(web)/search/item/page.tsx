@@ -10,6 +10,9 @@ import SearchText from "@/components/search/SearchText";
 import { useRouter, useSearchParams } from "next/navigation";
 import Cookies from "js-cookie";
 import { CookieKey } from "@/constants/key";
+import useGetSearchItem from "@/hooks/search/item/useGetSearchItem";
+import { useRecoilValue } from "recoil";
+import { operatorCodeState } from "@/recoil/search";
 
 export default function SearchItemPage() {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -21,16 +24,12 @@ export default function SearchItemPage() {
     isDirectDelivery: true,
     sortOrder: 0,
   });
-  const storedUser = Cookies.get(CookieKey.User);
-
   const [resultViewState, setResultViewState] = useState<boolean>(false);
+  const operatorCode = useRecoilValue(operatorCodeState);
 
   const router = useRouter();
   const params = useSearchParams();
 
-  // if (params.size === 7) {
-  //   console.log("검색했냐옹");
-  // }
   const searchKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {

@@ -1,14 +1,12 @@
-import { CookieKey } from "@/constants/key";
-import useGetSearchResult from "@/hooks/search/item/useGetSearchItem";
+import { useMemo } from "react";
+import useGetSearchItem from "@/hooks/search/item/useGetSearchItem";
 import { operatorCodeState } from "@/recoil/search";
 import { COLUMN_TITLES } from "@/types/search/item/type";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+import { SearchResultDto } from "@/types/search/dtos";
 
 const ItemResult = () => {
-  // const [keyword, setKeyword] = useState<string | null>(null);
-
   const params = useSearchParams();
   const keyword = params.get("keyword");
   const searchType = params.get("searchType");
@@ -19,53 +17,38 @@ const ItemResult = () => {
   const mdLevel = params.get("mdLevel");
   const operatorCode = useRecoilValue(operatorCodeState);
 
-  const searchData = {
-    searchType: searchType,
-    operatorCode: operatorCode,
-    searchValue: keyword,
-    sortOrder: sortOrder,
-    branchType: branchType,
-    includeOutOfStock: includeOutOfStock,
-    mdLevel: mdLevel,
-    isDirectDelivery: isDirectDelivery,
-  };
-  const response = fetch("https://tkapi.aladin.co.kr/api/thankyousearch", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(searchData),
-  });
+  const searchData = useMemo(
+    () => ({
+      searchType: searchType,
+      operatorCode: operatorCode,
+      searchValue: keyword,
+      sortOrder: sortOrder,
+      branchType: branchType,
+      includeOutOfStock: includeOutOfStock,
+      mdLevel: mdLevel,
+      isDirectDelivery: isDirectDelivery,
+    }),
+    [
+      searchType,
+      operatorCode,
+      keyword,
+      sortOrder,
+      branchType,
+      includeOutOfStock,
+      mdLevel,
+      isDirectDelivery,
+    ]
+  );
 
-  console.log(keyword);
-  console.log(searchType);
-  console.log(includeOutOfStock);
-  console.log(branchType);
-  console.log(isDirectDelivery);
-  console.log(sortOrder);
-  console.log(operatorCode);
-  // useEffect(() => {
-  //   if (params) {
-  //     params.forEach((value, key) => {
-  //       console.log(`Key: ${key}, Value: ${value}`);
-  //     });
-  //   } else {
-  //     console.log("parmas없음");
-  //   }
-  // }, [params]);
-  // getKeyword(queryString.get("keyword"));
+  const { searchResult, loading, error } = useGetSearchItem(searchData);
 
-  // const keyword = queryString.get("keyword");
+  if (loading) {
+    return <div>검색중</div>;
+  }
 
-  // const { searchResult } = useGetSearchResult(queryString);
-
-  // const params = useSearchParams();
-  // if (params) {
-  //   const keyword = params.get("keyword");
-  //   console.log(keyword);
-  // } else {
-  //   console.log("No search parameters found.");
-  // }
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="container">
@@ -76,8 +59,8 @@ const ItemResult = () => {
               className="list-inline horizontal-scroll"
               style={{ display: "flex", flexWrap: "nowrap" }}
             >
-              {COLUMN_TITLES.map((title, index) => (
-                <li className="list-inline-item" key={index}>
+              {COLUMN_TITLES.map((title) => (
+                <li className="list-inline-item" key={title}>
                   {title}
                 </li>
               ))}
@@ -86,7 +69,7 @@ const ItemResult = () => {
         </div>
       </div>
 
-      {/* {searchResult.data.map((item) => (
+      {searchResult?.data.map((item: SearchResultDto) => (
         <div className="row" key={item.itemId}>
           <div className="col-12">
             <div className="horizontal-scroll-container">
@@ -94,16 +77,16 @@ const ItemResult = () => {
                 className="list-inline horizontal-scroll"
                 style={{ display: "flex", flexWrap: "nowrap" }}
               >
-                {Object.keys(item).map((key, index) => (
-                  <li className="list-inline-item" key={index}>
-                    {item[key]}
+                {Object.entries(item).map(([key, value]) => (
+                  <li className="list-inline-item" key={key}>
+                    {typeof value === "object" ? JSON.stringify(value) : value}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
         </div>
-      ))} */}
+      ))}
     </div>
   );
 };

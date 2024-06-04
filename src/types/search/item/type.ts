@@ -100,7 +100,6 @@ export const COLUMN_TITLES = [
   "비고",
   "바코드",
   "SupplierCode",
-  "도매상",
   "매절발주일",
   "매절구분",
   "매절상태",
