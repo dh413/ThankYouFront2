@@ -10,7 +10,7 @@ export interface NavgationType {
 export interface NavgationInfo {
   url: string;
   name: string;
-  requiresAuth: boolean;
+  requiresAuth?: boolean;
   dropdown?: boolean;
   onClick?: () => void;
 }
