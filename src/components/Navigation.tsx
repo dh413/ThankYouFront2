@@ -21,8 +21,7 @@ export default function Navigation() {
   useEffect(() => {
     if (storedUser) {
         const userObject = JSON.parse(storedUser);
-        if(userObject && userObject.operatorCode){
-          setOperatorCode(userObject.operatorCode);
+        if(userObject){
           setIsLoggedIn(true);
         }
     }

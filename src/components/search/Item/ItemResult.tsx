@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import useGetSearchItem from "@/hooks/search/item/useGetSearchItem";
+import useGetSearchResults from "@/hooks/search/item/useGetSearchResults";
 import { operatorCodeState } from "@/recoil/search";
 import { COLUMN_TITLES } from "@/types/search/item/type";
 import { useSearchParams } from "next/navigation";
@@ -41,7 +41,7 @@ const ItemResult = () => {
     ]
   );
 
-  const { searchResult, isLoading, error } = useGetSearchItem(searchData);
+  const { searchResult, isLoading, error } = useGetSearchResults(searchData);
 
   if (isLoading) {
     return <div>검색중</div>;

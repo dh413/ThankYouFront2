@@ -7,12 +7,14 @@ import { loginInfoState } from "@/recoil/login";
 import { API_ROUTES, APP_ROUTES } from "@/constants/routes";
 import { CookieKey } from "@/constants/key";
 import { USER_COOKIE_SETTING } from "@/constants/cookies";
+import { operatorCodeState } from "@/recoil/search";
 
 const LoginForm = () => {
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
   const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
   const router = useRouter();
+  const [operatorCode, setOperatorCode] = useRecoilState(operatorCodeState);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -43,6 +45,9 @@ const LoginForm = () => {
               // sameSite: userCookieSetting.sameSite,
               // path: userCookieSetting.path,
             });
+            setOperatorCode(result.data.operatorCode);
+            
+
 
             router.push(APP_ROUTES.URL.MAIN);
           }

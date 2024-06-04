@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 
 
 
-const useGetSearchItem = (searchData:SearchData) => {
+const useGetSearchResults = (searchData:SearchData) => {
   const [searchResult, setSearchResult] = useState<SearchResultDto | null>(
     null
   );
@@ -40,4 +40,4 @@ const useGetSearchItem = (searchData:SearchData) => {
   }, [searchData]);
   return { searchResult, isLoading, error };
 };
-export default useGetSearchItem;
+export default useGetSearchResults;
