@@ -5,14 +5,12 @@ import Itemfilter from "@/components/search/Item/ItemFilter";
 import ItemFooter from "@/components/search/Item/ItemFooter";
 import ItemResult from "@/components/search/Item/ItemResult";
 import { SearchItemState } from "@/types/search/item/type";
-import { API_ROUTES, SEARCH_ROUTES } from "@/constants/routes";
+import { SEARCH_ROUTES } from "@/constants/routes";
 import SearchText from "@/components/search/SearchText";
 import { useRouter, useSearchParams } from "next/navigation";
-import Cookies from "js-cookie";
-import { CookieKey } from "@/constants/key";
-import useGetSearchItem from "@/hooks/search/item/useGetSearchItem";
 import { useRecoilValue } from "recoil";
 import { operatorCodeState } from "@/recoil/search";
+import { SEARCH } from "@/constants/search";
 
 export default function SearchItemPage() {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -25,7 +23,6 @@ export default function SearchItemPage() {
     sortOrder: 0,
   });
   const [resultViewState, setResultViewState] = useState<boolean>(false);
-  const operatorCode = useRecoilValue(operatorCodeState);
 
   const router = useRouter();
   const params = useSearchParams();
@@ -67,7 +64,15 @@ export default function SearchItemPage() {
   };
 
   useEffect(() => {
-    if (params.get("keyword")) {
+    if (
+      params.get(SEARCH.KEYWORD) &&
+      params.get(SEARCH.BRANCH_TYPE) &&
+      params.get(SEARCH.INCLUDE_OUT_OF_STOCK) &&
+      params.get(SEARCH.IS_DIRECT_DELIVERY) &&
+      params.get(SEARCH.MD_LEVEL) &&
+      params.get(SEARCH.SEARCH_TYPE) &&
+      params.get(SEARCH.SORT_ORDER)
+    ) {
       setResultViewState(true);
     } else {
       setResultViewState(false);

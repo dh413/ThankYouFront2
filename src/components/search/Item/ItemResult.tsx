@@ -5,16 +5,17 @@ import { COLUMN_TITLES } from "@/types/search/item/type";
 import { useSearchParams } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { SearchResultDto } from "@/types/search/dtos";
+import { SEARCH } from "@/constants/search";
 
 const ItemResult = () => {
   const params = useSearchParams();
-  const keyword = params.get("keyword");
-  const searchType = params.get("searchType");
-  const includeOutOfStock = params.get("includeOutOfStock");
-  const branchType = params.get("branchType");
-  const isDirectDelivery = params.get("isDirectDelivery");
-  const sortOrder = params.get("sortOrder");
-  const mdLevel = params.get("mdLevel");
+  const keyword = params.get(SEARCH.KEYWORD);
+  const searchType = params.get(SEARCH.SEARCH_TYPE);
+  const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK);
+  const branchType = params.get(SEARCH.BRANCH_TYPE);
+  const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY);
+  const sortOrder = params.get(SEARCH.SORT_ORDER);
+  const mdLevel = params.get(SEARCH.MD_LEVEL);
   const operatorCode = useRecoilValue(operatorCodeState);
 
   const searchData = useMemo(
