@@ -9,82 +9,66 @@ import {
   SORT_ORDER,
   SearchItemState,
 } from "@/types/search/item/type";
-import { useState } from "react";
+import { FC } from "react";
 
-const Itemfilter = () => {
-  const [searchItemState, setSearchItemState] = useState<SearchItemState>({
-    searchType: 0,
-    includeOutOfStock: true,
-    branchType: 0,
-    mdLevel: 0,
-    isDirectDelivery: true,
-    sortOrder: 0,
-  });
+interface ItemFilterProps {
+  searchItemState: SearchItemState;
+  filterChange: (key: keyof SearchItemState, value: any) => void;
+  filterCheckBoxChange: (key: keyof SearchItemState) => void;
+}
 
-  const itemChange = (key: keyof SearchItemState, value: any): void => {
-    setSearchItemState((prevState) => ({
-      ...prevState,
-      [key]: value,
-    }));
-  };
-
-  const itemCheckBoxChange = (key: keyof SearchItemState): void => {
-    setSearchItemState((prevState) => ({
-      ...prevState,
-      [key]: !prevState[key],
-    }));
-  };
-
+const Itemfilter: FC<ItemFilterProps> = ({
+  searchItemState,
+  filterChange,
+  filterCheckBoxChange,
+}) => {
   return (
-
     <div className="row">
       <div className="col-12 search-group">
         <Radio
           options={SEARCH_TYPE}
           name="searchType"
           selectedValue={searchItemState.searchType}
-          onChange={(value) => itemChange("searchType", value)}
+          onChange={(value) => filterChange("searchType", value)}
         />
       </div>
       <div className="col-12 search-group">
-      <Radio
-        options={MD_LEVEL}
-        name="mdLevel"
-        selectedValue={searchItemState.mdLevel}
-        onChange={(value) => itemChange("mdLevel", value)}
-      />
+        <Radio
+          options={MD_LEVEL}
+          name="mdLevel"
+          selectedValue={searchItemState.mdLevel}
+          onChange={(value) => filterChange("mdLevel", value)}
+        />
       </div>
       <div className="col-12 search-group">
-      <Radio
-        options={SORT_ORDER}
-        name="sortOrder"
-        selectedValue={searchItemState.sortOrder}
-        onChange={(value) => itemChange("sortOrder", value)}
-      />
-      </div>
-
-      <div className="col-12 search-group">
-      <Radio
-        options={BRANCH_TYPE}
-        name="branchType"
-        selectedValue={searchItemState.branchType}
-        onChange={(value) => itemChange("branchType", value)}
-      />
-      </div>
-
-      <div className="col-12 search-group">
-      <Checkbox
-        label="보유"
-        checked={searchItemState.includeOutOfStock}
-        onChange={() => itemCheckBoxChange("includeOutOfStock")}
-      />
+        <Radio
+          options={SORT_ORDER}
+          name="sortOrder"
+          selectedValue={searchItemState.sortOrder}
+          onChange={(value) => filterChange("sortOrder", value)}
+        />
       </div>
       <div className="col-12 search-group">
-      <Checkbox
-        label="직배송"
-        checked={searchItemState.isDirectDelivery}
-        onChange={() => itemCheckBoxChange("isDirectDelivery")}
-      />
+        <Radio
+          options={BRANCH_TYPE}
+          name="branchType"
+          selectedValue={searchItemState.branchType}
+          onChange={(value) => filterChange("branchType", value)}
+        />
+      </div>
+      <div className="col-12 search-group">
+        <Checkbox
+          label="보유"
+          checked={searchItemState.includeOutOfStock}
+          onChange={() => filterCheckBoxChange("includeOutOfStock")}
+        />
+      </div>
+      <div className="col-12 search-group">
+        <Checkbox
+          label="직배송"
+          checked={searchItemState.isDirectDelivery}
+          onChange={() => filterCheckBoxChange("isDirectDelivery")}
+        />
       </div>
     </div>
   );
