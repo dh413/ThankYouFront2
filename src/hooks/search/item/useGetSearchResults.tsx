@@ -9,32 +9,33 @@ const useGetSearchResults = (searchData: SearchData) => {
   );
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const fetchSearchResults = async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
+      const response = await fetch(API_ROUTES.SEARCH_ITEM, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(searchData),
+      });
+
+      const data = await response.json();
+
+      setSearchResult(data);
+    } catch (error) {
+      setError("API에러");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchSearchResults = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        const response = await fetch(API_ROUTES.SEARCH_ITEM, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(searchData),
-        });
-
-        const data = await response.json();
-
-        setSearchResult(data);
-      } catch (error) {
-        setError("API에러");
-      } finally {
-        setIsLoading(false);
-      }
-    };
     fetchSearchResults();
   }, [searchData]);
+
   return { searchResult, isLoading, error };
 };
 export default useGetSearchResults;

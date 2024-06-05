@@ -42,8 +42,6 @@ const ItemResult = () => {
     ]
   );
 
-  console.log(keyword);
-
   const { searchResult, isLoading, error } = useGetSearchResults(searchData);
 
   if (isLoading) {
