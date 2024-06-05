@@ -22,7 +22,6 @@ export default function ItemMain() {
     sortOrder: 0,
   });
   const [hasResult, setHasResult] = useState<boolean>(false);
-  // const [selectedItemId, setSelectedItemId] = useState<SearchResultDto>();
   const [selectedItem, setSelectedItem] = useState<SearchResultDto | null>(
     null
   );
