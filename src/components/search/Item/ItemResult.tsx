@@ -7,8 +7,10 @@ import { useRecoilValue } from "recoil";
 import { SearchResultDto } from "@/types/search/dtos";
 import { SEARCH } from "@/constants/search";
 import { SearchData } from "@/types/search/common/type";
-
-const ItemResult = () => {
+interface SearchResultProps {
+  onItemClick: (item: SearchResultDto) => void;
+}
+const ItemResult: React.FC<SearchResultProps> = ({ onItemClick }) => {
   const params = useSearchParams();
   const keyword = params.get(SEARCH.KEYWORD) ?? "";
   const searchType = params.get(SEARCH.SEARCH_TYPE) ?? "";
@@ -59,7 +61,7 @@ const ItemResult = () => {
           className="list-inline horizontal-scroll"
           style={{ display: "flex", flexWrap: "nowrap" }}
         >
-          {COLUMN_TITLES.map((title) => (
+          {Object.values(COLUMN_TITLES).map((title) => (
             <li className="list-inline-item" key={title}>
               {title}
             </li>
@@ -68,7 +70,11 @@ const ItemResult = () => {
       </div>
 
       {searchResult?.data.map((item: SearchResultDto) => (
-        <div className="row" key={item.itemId}>
+        <div
+          className="row"
+          key={item.itemId}
+          onClick={() => onItemClick(item)}
+        >
           <div className="col-12">
             <div className="horizontal-scroll-container">
               <ul

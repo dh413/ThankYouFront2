@@ -1,6 +1,5 @@
 "use client";
 
-import Footer from "@/components/Footer";
 import Navigation from "@/components/Navigation";
 import { RecoilRoot } from "recoil";
 
@@ -13,7 +12,6 @@ export default function CommonLayout({
     <RecoilRoot>
       <Navigation />
       {children}
-      <Footer />
     </RecoilRoot>
   );
 }

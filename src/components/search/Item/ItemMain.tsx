@@ -9,6 +9,7 @@ import { SEARCH_ROUTES } from "@/constants/routes";
 import SearchText from "@/components/search/SearchText";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SEARCH } from "@/constants/search";
+import { SearchResultDto } from "@/types/search/dtos";
 
 export default function ItemMain() {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -21,6 +22,10 @@ export default function ItemMain() {
     sortOrder: 0,
   });
   const [hasResult, setHasResult] = useState<boolean>(false);
+  // const [selectedItemId, setSelectedItemId] = useState<SearchResultDto>();
+  const [selectedItem, setSelectedItem] = useState<SearchResultDto | null>(
+    null
+  );
 
   const router = useRouter();
   const params = useSearchParams();
@@ -68,6 +73,11 @@ export default function ItemMain() {
       [key]: !prevState[key],
     }));
   };
+  const handleItemClick = (item: SearchResultDto) => {
+    console.log(item);
+
+    setSelectedItem(item);
+  };
 
   useEffect(() => {
     setSearchedKeyword(keyword);
@@ -79,7 +89,12 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
-    setHasResult(true);
+
+    if (keyword) {
+      setHasResult(true);
+    } else {
+      setHasResult(false);
+    }
   }, [
     keyword,
     searchType,
@@ -102,8 +117,8 @@ export default function ItemMain() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      {hasResult && <ItemResult />}
-      <ItemFooter />
+      {hasResult && <ItemResult onItemClick={handleItemClick} />}
+      <ItemFooter selectedItem={selectedItem} />
     </>
   );
 }
