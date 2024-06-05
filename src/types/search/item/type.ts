@@ -1,4 +1,4 @@
-import { SearchResultDto } from "../dtos";
+import { SearchResultDto } from "@/types/search/dtos";
 
 export interface Option {
   label: string;
