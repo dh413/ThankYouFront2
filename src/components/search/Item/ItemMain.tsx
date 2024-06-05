@@ -23,8 +23,14 @@ export default function ItemMain() {
   const [hasResult, setHasResult] = useState<boolean>(false);
 
   const router = useRouter();
-
   const params = useSearchParams();
+  const keyword = params.get(SEARCH.KEYWORD) ?? "";
+  const searchType = params.get(SEARCH.SEARCH_TYPE) ?? "";
+  const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK) ?? "";
+  const branchType = params.get(SEARCH.BRANCH_TYPE) ?? "";
+  const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "";
+  const sortOrder = params.get(SEARCH.SORT_ORDER) ?? "";
+  const mdLevel = params.get(SEARCH.MD_LEVEL) ?? "";
 
   const searchKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -64,14 +70,6 @@ export default function ItemMain() {
   };
 
   useEffect(() => {
-    const keyword = params.get(SEARCH.KEYWORD) ?? "";
-    const searchType = params.get(SEARCH.SEARCH_TYPE) ?? "";
-    const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK) ?? "";
-    const branchType = params.get(SEARCH.BRANCH_TYPE) ?? "";
-    const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "";
-    const sortOrder = params.get(SEARCH.SORT_ORDER) ?? "";
-    const mdLevel = params.get(SEARCH.MD_LEVEL) ?? "";
-
     setSearchedKeyword(keyword);
     setSearchItemState({
       searchType: searchType ? parseInt(searchType, 10) : 0,
@@ -82,7 +80,15 @@ export default function ItemMain() {
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
     setHasResult(true);
-  }, [params]);
+  }, [
+    keyword,
+    searchType,
+    includeOutOfStock,
+    branchType,
+    isDirectDelivery,
+    sortOrder,
+    mdLevel,
+  ]);
 
   return (
     <>
