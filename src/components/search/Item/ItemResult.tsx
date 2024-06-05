@@ -28,6 +28,7 @@ const ItemResult = () => {
       includeOutOfStock,
       mdLevel,
       isDirectDelivery,
+      searchValue: keyword,
     }),
     [
       searchType,
@@ -40,6 +41,8 @@ const ItemResult = () => {
       isDirectDelivery,
     ]
   );
+
+  console.log(keyword);
 
   const { searchResult, isLoading, error } = useGetSearchResults(searchData);
 
