@@ -38,16 +38,18 @@ const LoginForm = () => {
         } else {
           if (result.data) {
             setLoginInfo(result.data);
-            Cookies.set(CookieKey.User, JSON.stringify(result.data), {
-              expires: USER_COOKIE_SETTING.expires,
-              // TODO :443연결 되면 주석해제
-              // secure: userCookieSetting.secure,
-              // sameSite: userCookieSetting.sameSite,
-              // path: userCookieSetting.path,
-            });
+            Cookies.set(
+              CookieKey.User,
+              JSON.stringify(result.data.operatorId),
+              {
+                expires: USER_COOKIE_SETTING.expires,
+                // TODO :443연결 되면 주석해제
+                // secure: userCookieSetting.secure,
+                // sameSite: userCookieSetting.sameSite,
+                // path: userCookieSetting.path,
+              }
+            );
             setOperatorCode(result.data.operatorCode);
-            
-
 
             router.push(APP_ROUTES.URL.MAIN);
           }
