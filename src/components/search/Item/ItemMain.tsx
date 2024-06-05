@@ -29,12 +29,12 @@ export default function ItemMain() {
   const router = useRouter();
   const params = useSearchParams();
   const keyword = params.get(SEARCH.KEYWORD) ?? "";
-  const searchType = params.get(SEARCH.SEARCH_TYPE) ?? "";
-  const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK) ?? "";
-  const branchType = params.get(SEARCH.BRANCH_TYPE) ?? "";
-  const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "";
-  const sortOrder = params.get(SEARCH.SORT_ORDER) ?? "";
-  const mdLevel = params.get(SEARCH.MD_LEVEL) ?? "";
+  const searchType = params.get(SEARCH.SEARCH_TYPE) ?? 0;
+  const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK) ?? "true";
+  const branchType = params.get(SEARCH.BRANCH_TYPE) ?? 0;
+  const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "true";
+  const sortOrder = params.get(SEARCH.SORT_ORDER) ?? 0;
+  const mdLevel = params.get(SEARCH.MD_LEVEL) ?? 0;
 
   const searchKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>

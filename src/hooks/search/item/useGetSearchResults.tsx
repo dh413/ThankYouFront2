@@ -38,7 +38,7 @@ const useGetSearchResults = (searchData: SearchData) => {
 
   useEffect(() => {
     fetchSearchResults();
-  }, [searchData]);
+  }, [searchData, fetchSearchResults]);
 
   return { searchResult, isLoading, error };
 };
