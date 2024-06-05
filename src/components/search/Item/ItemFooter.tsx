@@ -7,13 +7,13 @@ const ItemFooter: React.FC<ItemFooterProps> = ({
   resultCount,
 }) => {
   const formatSelectedItem = (item: SearchResultDto | null) => {
-    if (!item) return "";
-
+    if (!item) {
+      return "";
+    }
     const formatted = Object.keys(COLUMN_TITLES).map((key) => {
       const value = item[key as keyof SearchResultDto];
       return `${COLUMN_TITLES[key]}: ${value}`;
     });
-
     return formatted.join("\n");
   };
 
@@ -70,7 +70,7 @@ const ItemFooter: React.FC<ItemFooterProps> = ({
         placeholder="클릭한 항목들의 상세정보가 여기에 표시됩니다."
         value={formatSelectedItem(selectedItem)}
         readOnly
-      ></textarea>
+      />
       <div className="input-group">
         <div className="form-check me-3">
           <input className="form-check-input" type="checkbox" id="option1" />
