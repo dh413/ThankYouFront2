@@ -113,7 +113,7 @@ export const COLUMN_TITLES: { [key: string]: string } = {
 };
 
 export interface SearchResultProps {
-  onItemInfoClick: (item: SearchResultDto) => void;
+  onClickItemInfo: (item: SearchResultDto) => void;
   setResultCount: (count: number) => void;
 }
 export interface ItemFooterProps {

@@ -74,7 +74,7 @@ export default function ItemMain() {
     }));
   };
 
-  const onItemInfoClick = (item: SearchResultDto) => {
+  const onClickItemInfo = (item: SearchResultDto) => {
     setSelectedItem(item);
   };
 
@@ -89,7 +89,15 @@ export default function ItemMain() {
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
 
-    if (keyword) {
+    if (
+      keyword &&
+      searchType &&
+      includeOutOfStock &&
+      branchType &&
+      isDirectDelivery &&
+      sortOrder &&
+      mdLevel
+    ) {
       setHasResult(true);
     } else {
       setHasResult(false);
@@ -118,7 +126,7 @@ export default function ItemMain() {
       />
       {hasResult && (
         <ItemResult
-          onItemInfoClick={onItemInfoClick}
+          onClickItemInfo={onClickItemInfo}
           setResultCount={setResultCount}
         />
       )}
