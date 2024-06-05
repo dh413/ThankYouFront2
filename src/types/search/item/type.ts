@@ -67,7 +67,7 @@ export const BRANCH_TYPE: Option[] = [
   { label: "Market", value: 12 },
 ];
 
-export const COLUMN_TITLES = {
+export const COLUMN_TITLES: { [key: string]: string } = {
   title: "제목",
   itemId: "ItemId",
   author: "저자(수수료율/액)",

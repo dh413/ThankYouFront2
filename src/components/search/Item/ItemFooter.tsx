@@ -1,5 +1,6 @@
 import React from "react";
 import { SearchResultDto } from "@/types/search/dtos";
+import { COLUMN_TITLES } from "@/types/search/item/type";
 
 interface ItemFooterProps {
   selectedItem: SearchResultDto | null;
@@ -8,18 +9,11 @@ interface ItemFooterProps {
 const ItemFooter: React.FC<ItemFooterProps> = ({ selectedItem }) => {
   const formatSelectedItem = (item: SearchResultDto | null) => {
     if (!item) return "";
-    const formatted = [
-      `제목: ${item.title}`,
-      `ItemId: ${item.itemId}`,
-      `저자: ${item.author}`,
-      `출판사: ${item.publisher}`,
-      `정가: ${item.priceStd}`,
-      `판매가: ${item.priceSales}`,
-      `ISBN: ${item.isbn}`,
-      `상태: ${item.stockStatus}`,
-      `판매수량: ${item.salesQty}`,
-      `재고: ${item.stockAlarm}`,
-    ];
+
+    const formatted = Object.keys(COLUMN_TITLES).map((key) => {
+      const value = item[key as keyof SearchResultDto];
+      return `${COLUMN_TITLES[key]}: ${value}`;
+    });
 
     return formatted.join("\n");
   };
@@ -75,7 +69,7 @@ const ItemFooter: React.FC<ItemFooterProps> = ({ selectedItem }) => {
         className="form-control mb-3"
         rows={3}
         placeholder="클릭한 항목들의 상세정보가 여기에 표시됩니다."
-        value={selectedItem ? JSON.stringify(selectedItem, null, 2) : ""}
+        value={formatSelectedItem(selectedItem)}
         readOnly
       ></textarea>
       <div className="input-group">
