@@ -7,12 +7,14 @@ import { loginInfoState } from "@/recoil/login";
 import { API_ROUTES, APP_ROUTES } from "@/constants/routes";
 import { CookieKey } from "@/constants/key";
 import { USER_COOKIE_SETTING } from "@/constants/cookies";
+import { operatorCodeState } from "@/recoil/search";
 
 const LoginForm = () => {
   const [id, setId] = useState<string>("");
   const [pw, setPw] = useState<string>("");
   const [loginInfo, setLoginInfo] = useRecoilState(loginInfoState);
   const router = useRouter();
+  const [operatorCode, setOperatorCode] = useRecoilState(operatorCodeState);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -36,13 +38,18 @@ const LoginForm = () => {
         } else {
           if (result.data) {
             setLoginInfo(result.data);
-            Cookies.set(CookieKey.User, JSON.stringify(result.data), {
-              expires: USER_COOKIE_SETTING.expires,
-              // TODO :443연결 되면 주석해제
-              // secure: userCookieSetting.secure,
-              // sameSite: userCookieSetting.sameSite,
-              // path: userCookieSetting.path,
-            });
+            Cookies.set(
+              CookieKey.User,
+              JSON.stringify(result.data.operatorId),
+              {
+                expires: USER_COOKIE_SETTING.expires,
+                // TODO :443연결 되면 주석해제
+                // secure: userCookieSetting.secure,
+                // sameSite: userCookieSetting.sameSite,
+                // path: userCookieSetting.path,
+              }
+            );
+            setOperatorCode(result.data.operatorCode);
 
             router.push(APP_ROUTES.URL.MAIN);
           }

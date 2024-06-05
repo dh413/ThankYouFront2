@@ -7,6 +7,8 @@ import { APP_ROUTES, MAIN_NAVIGATION_ITEMS } from "@/constants/routes";
 import { CookieKey } from "@/constants/key";
 import { NavgationInfo } from "@/types/common/navigation";
 import { getBasePath } from "@/utils/util";
+import { operatorCodeState } from "@/recoil/search";
+import { useRecoilState } from "recoil";
 
 export default function Navigation() {
   const path = usePathname();
@@ -14,10 +16,14 @@ export default function Navigation() {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const router = useRouter();
   const basePath = getBasePath(path);
+  const [operatorCode, setOperatorCode] = useRecoilState(operatorCodeState);
 
   useEffect(() => {
     if (storedUser) {
-      setIsLoggedIn(true);
+        const userObject = JSON.parse(storedUser);
+        if(userObject){
+          setIsLoggedIn(true);
+        }
     }
   }, [storedUser]);
 

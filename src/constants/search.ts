@@ -1,4 +1,5 @@
 export const SEARCH = {
+  KEYWORD: "keyword",
   SEARCH_TYPE: "searchType",
   MD_LEVEL: "mdLevel",
   SORT_ORDER: "sortOrder",

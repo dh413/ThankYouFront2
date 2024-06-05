@@ -8,6 +8,7 @@ const setApiRoute = (route: string) => {
 
 export const API_ROUTES = {
   LOGIN: setApiRoute("/api/thankyoulogin"),
+  SEARCH_ITEM: setApiRoute("/api/thankyousearch"),
 };
 
 export const APP_ROUTES: NavgationType = {
