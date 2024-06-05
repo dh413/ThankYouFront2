@@ -66,38 +66,49 @@ const ItemResult: React.FC<SearchResultProps> = ({
   }
 
   return (
-    <div className="container">
-      <div className="horizontal-scroll-container">
-        <ul
-          className="list-inline horizontal-scroll"
-          style={{ display: "flex", flexWrap: "nowrap" }}
-        >
-          {Object.values(COLUMN_TITLES).map((title) => (
-            <li className="list-inline-item" key={title}>
-              {title}
-            </li>
-          ))}
-        </ul>
+    <div>
+      <div className="d-flex bg-light p-2">
+        {Object.values(COLUMN_TITLES).map((title) => (
+          <div
+            key={title}
+            style={{
+              minWidth: "300px",
+              padding: "0 10px",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            }}
+          >
+            {title}
+          </div>
+        ))}
       </div>
 
       {searchResult?.data.map((item: SearchResultDto) => (
         <div
-          className="row"
+          className="row mb-2"
           key={item.itemId}
           onClick={() => clickItemInfo(item)}
+          style={{ cursor: "pointer" }}
         >
           <div className="col-12">
-            <div className="horizontal-scroll-container">
-              <ul
-                className="list-inline horizontal-scroll"
-                style={{ display: "flex", flexWrap: "nowrap" }}
-              >
-                {Object.entries(item).map(([key, value]) => (
-                  <li className="list-inline-item" key={key}>
+            <div className="d-flex">
+              {Object.entries(item)
+                .filter(([key]) => COLUMN_TITLES.hasOwnProperty(key))
+                .map(([key, value]) => (
+                  <div
+                    key={key}
+                    style={{
+                      minWidth: "300px",
+                      padding: "0 10px",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
                     {typeof value === "object" ? JSON.stringify(value) : value}
-                  </li>
+                  </div>
                 ))}
-              </ul>
             </div>
           </div>
         </div>
