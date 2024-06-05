@@ -74,9 +74,8 @@ export default function ItemMain() {
       [key]: !prevState[key],
     }));
   };
-  const handleItemClick = (item: SearchResultDto) => {
-    console.log(item);
 
+  const onItemInfoClick = (item: SearchResultDto) => {
     setSelectedItem(item);
   };
 
@@ -120,7 +119,7 @@ export default function ItemMain() {
       />
       {hasResult && (
         <ItemResult
-          onItemClick={handleItemClick}
+          onItemInfoClick={onItemInfoClick}
           setResultCount={setResultCount}
         />
       )}
