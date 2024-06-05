@@ -9,6 +9,7 @@ import { SEARCH_ROUTES } from "@/constants/routes";
 import SearchText from "@/components/search/SearchText";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SEARCH } from "@/constants/search";
+import { SearchResultDto } from "@/types/search/dtos";
 
 export default function ItemMain() {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -20,17 +21,20 @@ export default function ItemMain() {
     isDirectDelivery: true,
     sortOrder: 0,
   });
-  const [hasResult, setHasResult] = useState<boolean>(false);
+  const [selectedItem, setSelectedItem] = useState<SearchResultDto | null>(
+    null
+  );
+  const [resultCount, setResultCount] = useState<number>(0);
 
   const router = useRouter();
   const params = useSearchParams();
   const keyword = params.get(SEARCH.KEYWORD) ?? "";
-  const searchType = params.get(SEARCH.SEARCH_TYPE) ?? "";
-  const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK) ?? "";
-  const branchType = params.get(SEARCH.BRANCH_TYPE) ?? "";
-  const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "";
-  const sortOrder = params.get(SEARCH.SORT_ORDER) ?? "";
-  const mdLevel = params.get(SEARCH.MD_LEVEL) ?? "";
+  const searchType = params.get(SEARCH.SEARCH_TYPE) ?? 0;
+  const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK) ?? "true";
+  const branchType = params.get(SEARCH.BRANCH_TYPE) ?? 0;
+  const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "true";
+  const sortOrder = params.get(SEARCH.SORT_ORDER) ?? 0;
+  const mdLevel = params.get(SEARCH.MD_LEVEL) ?? 0;
 
   const searchKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -49,7 +53,6 @@ export default function ItemMain() {
         isDirectDelivery: searchItemState.isDirectDelivery.toString(),
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
-      setHasResult(true);
 
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
@@ -69,6 +72,10 @@ export default function ItemMain() {
     }));
   };
 
+  const clickItemInfo = (item: SearchResultDto) => {
+    setSelectedItem(item);
+  };
+
   useEffect(() => {
     setSearchedKeyword(keyword);
     setSearchItemState({
@@ -79,7 +86,6 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
-    setHasResult(true);
   }, [
     keyword,
     searchType,
@@ -102,8 +108,11 @@ export default function ItemMain() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      {hasResult && <ItemResult />}
-      <ItemFooter />
+      <ItemResult
+        clickItemInfo={clickItemInfo}
+        setResultCount={setResultCount}
+      />
+      <ItemFooter selectedItem={selectedItem} resultCount={resultCount} />
     </>
   );
 }

@@ -1,3 +1,5 @@
+import { SearchResultDto } from "@/types/search/dtos";
+
 export interface Option {
   label: string;
   value: number;
@@ -67,57 +69,60 @@ export const BRANCH_TYPE: Option[] = [
   { label: "Market", value: 12 },
 ];
 
-export const COLUMN_TITLES = [
-  "제목",
-  "ItemId",
-  "저자(수수료율/액)",
-  "출판사",
-  "정가",
-  "판매가",
-  "입고율",
-  "할인율",
-  "마일리지",
-  "상태",
-  "판매수량",
-  "재고",
-  "필보유",
-  "출간일",
-  "재고보유지수",
-  "입고가",
-  "ISBN",
-  "시리즈",
-  "로케이션",
-  "일시품절안내일",
-  "담당자",
-  "매절",
-  "ISBN확인",
-  "재고등급",
-  "도매상",
-  "등록일",
-  "등록경과일",
-  "자동발주타입",
-  "MD등급",
-  "비고",
-  "바코드",
-  "SupplierCode",
-  "매절발주일",
-  "매절구분",
-  "매절상태",
-  "매절단위",
-  "미리보기",
-  "재고소진일수",
-  "아마존랭킹",
-  "아마존정가",
-  "아마존판매가",
-  "중고최저가",
-  "예상 매입가",
-  "예상 판매가",
-  "바인딩정보",
-  "중고수",
-  "US정가",
-  "재고처리계획",
-  "출판사도서코드",
-  "이벤트사용여부",
-  "분철설정권수",
-  "분철주문수량",
-];
+export const COLUMN_TITLES: { [key: string]: string } = {
+  title: "제목",
+  itemId: "ItemId",
+  author: "저자(수수료율/액)",
+  publisher: "출판사",
+  priceStd: "정가",
+  priceSales: "판매가",
+  stockStatus: "상태",
+  salesQty: "판매수량",
+  stockAlarm: "재고",
+  realStock: "필보유",
+  publishTime: "출간일",
+  stockPossession: "재고보유지수",
+  inPrice: "입고가",
+  isbn: "ISBN",
+  seriesName: "시리즈",
+  stockLocation: "로케이션",
+  stockExplain: "일시품절안내일",
+  supplierOperatorType: "담당자",
+  stockPolicy: "매절",
+  validISBN: "ISBN확인",
+  stockLevel: "재고등급",
+  supplierName: "도매상",
+  regDate: "등록일",
+  stockBigo: "비고",
+  barCode: "바코드",
+  supplierCode: "SupplierCode",
+  stockExhaustedDay: "재고소진일수",
+  amazonSalesRank: "아마존랭킹",
+  amazonPriceStd: "아마존정가",
+  amazonPriceSales: "아마존판매가",
+  amazonLowestUsedPrice: "중고최저가",
+  amazonInPrice: "예상 매입가",
+  amazonExpectPriceSales: "예상 판매가",
+  amazonBinding: "바인딩정보",
+  priceUSStd: "US정가",
+  disposalPlan: "재고처리계획",
+  publisherBookCode: "출판사도서코드",
+  isEventUsing: "이벤트사용여부",
+  rebindQty: "분철설정권수",
+  rebindOrderQty: "분철주문수량",
+};
+
+export interface SearchResultProps {
+  clickItemInfo: (item: SearchResultDto) => void;
+  setResultCount: (count: number) => void;
+}
+export interface ItemFooterProps {
+  selectedItem: SearchResultDto | null;
+  resultCount: number;
+}
+
+export interface ItemFilterProps {
+  searchItemState: SearchItemState;
+  changeFilter: (key: keyof SearchItemState, value: any) => void;
+  changeCheckBoxFilter: (key: keyof SearchItemState) => void;
+}

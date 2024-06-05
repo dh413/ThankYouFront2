@@ -5,18 +5,13 @@ import Radio from "@/components/common/Radio";
 import { SEARCH } from "@/constants/search";
 import {
   BRANCH_TYPE,
+  ItemFilterProps,
   MD_LEVEL,
   SEARCH_TYPE,
   SORT_ORDER,
   SearchItemState,
 } from "@/types/search/item/type";
 import { FC } from "react";
-
-interface ItemFilterProps {
-  searchItemState: SearchItemState;
-  changeFilter: (key: keyof SearchItemState, value: any) => void;
-  changeCheckBoxFilter: (key: keyof SearchItemState) => void;
-}
 
 const Itemfilter: FC<ItemFilterProps> = ({
   searchItemState,
