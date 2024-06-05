@@ -3,10 +3,7 @@ import { SearchData } from "@/types/search/common/type";
 import { SearchResultDto } from "@/types/search/dtos";
 import { useState, useEffect } from "react";
 
-
-
-
-const useGetSearchResults = (searchData:SearchData) => {
+const useGetSearchResults = (searchData: SearchData) => {
   const [searchResult, setSearchResult] = useState<SearchResultDto | null>(
     null
   );
