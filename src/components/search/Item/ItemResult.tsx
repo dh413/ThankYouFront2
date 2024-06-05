@@ -21,14 +21,14 @@ const ItemResult = () => {
 
   const searchData: SearchData = useMemo(
     () => ({
-      searchType,
+      searchType: searchType ?? undefined,
       operatorCode,
-      sortOrder,
-      branchType,
-      includeOutOfStock,
-      mdLevel,
-      isDirectDelivery,
-      searchValue: keyword,
+      sortOrder: sortOrder ?? undefined,
+      branchType: branchType ?? undefined,
+      includeOutOfStock: includeOutOfStock ?? undefined,
+      mdLevel: mdLevel ?? undefined,
+      isDirectDelivery: isDirectDelivery ?? undefined,
+      searchValue: keyword ?? undefined,
     }),
     [
       searchType,
