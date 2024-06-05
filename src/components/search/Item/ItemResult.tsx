@@ -9,7 +9,7 @@ import { SEARCH } from "@/constants/search";
 import { SearchData } from "@/types/search/common/type";
 
 const ItemResult: React.FC<SearchResultProps> = ({
-  onClickItemInfo,
+  clickItemInfo,
   setResultCount,
 }) => {
   const params = useSearchParams();
@@ -80,7 +80,7 @@ const ItemResult: React.FC<SearchResultProps> = ({
         <div
           className="row"
           key={item.itemId}
-          onClick={() => onClickItemInfo(item)}
+          onClick={() => clickItemInfo(item)}
         >
           <div className="col-12">
             <div className="horizontal-scroll-container">

@@ -74,7 +74,7 @@ export default function ItemMain() {
     }));
   };
 
-  const onClickItemInfo = (item: SearchResultDto) => {
+  const clickItemInfo = (item: SearchResultDto) => {
     setSelectedItem(item);
   };
 
@@ -89,19 +89,17 @@ export default function ItemMain() {
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
 
-    if (
-      keyword &&
-      searchType &&
-      includeOutOfStock &&
-      branchType &&
-      isDirectDelivery &&
-      sortOrder &&
-      mdLevel
-    ) {
-      setHasResult(true);
-    } else {
-      setHasResult(false);
-    }
+    setHasResult(
+      !!(
+        keyword &&
+        searchType &&
+        includeOutOfStock &&
+        branchType &&
+        isDirectDelivery &&
+        sortOrder &&
+        mdLevel
+      )
+    );
   }, [
     keyword,
     searchType,
@@ -126,7 +124,7 @@ export default function ItemMain() {
       />
       {hasResult && (
         <ItemResult
-          onClickItemInfo={onClickItemInfo}
+          clickItemInfo={clickItemInfo}
           setResultCount={setResultCount}
         />
       )}
