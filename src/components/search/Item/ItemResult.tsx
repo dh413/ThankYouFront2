@@ -10,25 +10,25 @@ import { SearchData } from "@/types/search/common/type";
 
 const ItemResult = () => {
   const params = useSearchParams();
-  const keyword = params.get(SEARCH.KEYWORD);
-  const searchType = params.get(SEARCH.SEARCH_TYPE);
-  const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK);
-  const branchType = params.get(SEARCH.BRANCH_TYPE);
-  const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY);
-  const sortOrder = params.get(SEARCH.SORT_ORDER);
-  const mdLevel = params.get(SEARCH.MD_LEVEL);
-  const operatorCode = useRecoilValue(operatorCodeState);
+  const keyword = params.get(SEARCH.KEYWORD) ?? "";
+  const searchType = params.get(SEARCH.SEARCH_TYPE) ?? "";
+  const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK) ?? "";
+  const branchType = params.get(SEARCH.BRANCH_TYPE) ?? "";
+  const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "";
+  const sortOrder = params.get(SEARCH.SORT_ORDER) ?? "";
+  const mdLevel = params.get(SEARCH.MD_LEVEL) ?? "";
+  const operatorCode = useRecoilValue(operatorCodeState) ?? "";
 
   const searchData: SearchData = useMemo(
     () => ({
-      searchType: searchType ?? undefined,
+      searchType,
       operatorCode,
-      sortOrder: sortOrder ?? undefined,
-      branchType: branchType ?? undefined,
-      includeOutOfStock: includeOutOfStock ?? undefined,
-      mdLevel: mdLevel ?? undefined,
-      isDirectDelivery: isDirectDelivery ?? undefined,
-      searchValue: keyword ?? undefined,
+      sortOrder,
+      branchType,
+      includeOutOfStock,
+      mdLevel,
+      isDirectDelivery,
+      searchValue: keyword,
     }),
     [
       searchType,

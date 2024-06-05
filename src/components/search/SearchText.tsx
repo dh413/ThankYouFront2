@@ -22,17 +22,6 @@ const SearchText: FC<SearchTextProps> = ({
       searchSubmit();
     }
   };
-  const params = useSearchParams();
-  const keyword = params.get(SEARCH.KEYWORD);
-  // const searchType = params.get(SEARCH.SEARCH_TYPE);
-  // const includeOutOfStock = params.get(SEARCH.INCLUDE_OUT_OF_STOCK);
-  // const branchType = params.get(SEARCH.BRANCH_TYPE);
-  // const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY);
-  // const sortOrder = params.get(SEARCH.SORT_ORDER);
-  // const mdLevel = params.get(SEARCH.MD_LEVEL);
-  // const operatorCode = useRecoilValue(operatorCodeState);
-  // setSearchedKeyword = keyword
-  // console.log(keyword);
 
   return (
     <div className="d-flex justify-content-center">

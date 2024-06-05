@@ -1,7 +1,7 @@
 import { API_ROUTES } from "@/constants/routes";
 import { SearchData } from "@/types/search/common/type";
 import { SearchResultDto } from "@/types/search/dtos";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const useGetSearchResults = (searchData: SearchData) => {
   const [searchResult, setSearchResult] = useState<SearchResultDto | null>(
@@ -9,7 +9,8 @@ const useGetSearchResults = (searchData: SearchData) => {
   );
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const fetchSearchResults = async () => {
+
+  const fetchSearchResults = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
@@ -22,20 +23,24 @@ const useGetSearchResults = (searchData: SearchData) => {
         body: JSON.stringify(searchData),
       });
 
-      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
+      const data = await response.json();
       setSearchResult(data);
     } catch (error) {
       setError("API에러");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchData]);
 
   useEffect(() => {
     fetchSearchResults();
-  }, [searchData]);
+  }, [fetchSearchResults]);
 
   return { searchResult, isLoading, error };
 };
+
 export default useGetSearchResults;

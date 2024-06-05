@@ -14,11 +14,12 @@ export interface RadioProps {
 }
 
 export interface SearchData {
-  searchType?: string;
+  searchValue: string;
+  searchType: string;
   operatorCode: string;
-  sortOrder?: string;
-  branchType?: string;
-  includeOutOfStock?: string;
-  mdLevel?: string;
-  isDirectDelivery?: string;
+  sortOrder: string;
+  branchType: string;
+  includeOutOfStock: string;
+  mdLevel: string;
+  isDirectDelivery: string;
 }
