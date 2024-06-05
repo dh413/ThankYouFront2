@@ -81,6 +81,7 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
+    setHasResult(true);
   }, [params]);
 
   return (
