@@ -53,6 +53,10 @@ const ItemResult: React.FC<SearchResultProps> = ({
     }
   }, [searchResult, setResultCount]);
 
+  if (!searchResult?.data.length) {
+    return null;
+  }
+
   if (isLoading) {
     return <div>검색중</div>;
   }

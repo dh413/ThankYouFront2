@@ -21,7 +21,6 @@ export default function ItemMain() {
     isDirectDelivery: true,
     sortOrder: 0,
   });
-  const [hasResult, setHasResult] = useState<boolean>(false);
   const [selectedItem, setSelectedItem] = useState<SearchResultDto | null>(
     null
   );
@@ -54,7 +53,6 @@ export default function ItemMain() {
         isDirectDelivery: searchItemState.isDirectDelivery.toString(),
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
-      setHasResult(true);
 
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
@@ -88,18 +86,6 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
-
-    setHasResult(
-      !!(
-        keyword &&
-        searchType &&
-        includeOutOfStock &&
-        branchType &&
-        isDirectDelivery &&
-        sortOrder &&
-        mdLevel
-      )
-    );
   }, [
     keyword,
     searchType,
@@ -122,12 +108,10 @@ export default function ItemMain() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      {hasResult && (
-        <ItemResult
-          clickItemInfo={clickItemInfo}
-          setResultCount={setResultCount}
-        />
-      )}
+      <ItemResult
+        clickItemInfo={clickItemInfo}
+        setResultCount={setResultCount}
+      />
       <ItemFooter selectedItem={selectedItem} resultCount={resultCount} />
     </>
   );
