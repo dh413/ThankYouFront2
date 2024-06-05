@@ -1,3 +1,5 @@
+import { SearchResultDto } from "../dtos";
+
 export interface Option {
   label: string;
   value: number;
@@ -109,3 +111,18 @@ export const COLUMN_TITLES: { [key: string]: string } = {
   rebindQty: "분철설정권수",
   rebindOrderQty: "분철주문수량",
 };
+
+export interface SearchResultProps {
+  onItemClick: (item: SearchResultDto) => void;
+  setResultCount: (count: number) => void;
+}
+export interface ItemFooterProps {
+  selectedItem: SearchResultDto | null;
+  resultCount: number;
+}
+
+export interface ItemFilterProps {
+  searchItemState: SearchItemState;
+  changeFilter: (key: keyof SearchItemState, value: any) => void;
+  changeCheckBoxFilter: (key: keyof SearchItemState) => void;
+}

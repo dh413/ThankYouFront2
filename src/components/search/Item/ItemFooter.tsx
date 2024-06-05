@@ -1,12 +1,11 @@
 import React from "react";
 import { SearchResultDto } from "@/types/search/dtos";
-import { COLUMN_TITLES } from "@/types/search/item/type";
+import { COLUMN_TITLES, ItemFooterProps } from "@/types/search/item/type";
 
-interface ItemFooterProps {
-  selectedItem: SearchResultDto | null;
-}
-
-const ItemFooter: React.FC<ItemFooterProps> = ({ selectedItem }) => {
+const ItemFooter: React.FC<ItemFooterProps> = ({
+  selectedItem,
+  resultCount,
+}) => {
   const formatSelectedItem = (item: SearchResultDto | null) => {
     if (!item) return "";
 
@@ -29,7 +28,7 @@ const ItemFooter: React.FC<ItemFooterProps> = ({ selectedItem }) => {
             --
           </button>
         </div>
-        <span className="ms-3">0 건 찾음</span>
+        <span className="ms-3">{resultCount ?? 0} 건 찾음</span>
         <div
           className="btn-group ms-3"
           role="group"

@@ -26,6 +26,7 @@ export default function ItemMain() {
   const [selectedItem, setSelectedItem] = useState<SearchResultDto | null>(
     null
   );
+  const [resultCount, setResultCount] = useState<number>(0);
 
   const router = useRouter();
   const params = useSearchParams();
@@ -117,8 +118,13 @@ export default function ItemMain() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      {hasResult && <ItemResult onItemClick={handleItemClick} />}
-      <ItemFooter selectedItem={selectedItem} />
+      {hasResult && (
+        <ItemResult
+          onItemClick={handleItemClick}
+          setResultCount={setResultCount}
+        />
+      )}
+      <ItemFooter selectedItem={selectedItem} resultCount={resultCount} />
     </>
   );
 }

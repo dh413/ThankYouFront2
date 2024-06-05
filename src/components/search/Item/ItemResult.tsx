@@ -1,16 +1,17 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import useGetSearchResults from "@/hooks/search/item/useGetSearchResults";
 import { operatorCodeState } from "@/recoil/search";
-import { COLUMN_TITLES } from "@/types/search/item/type";
+import { COLUMN_TITLES, SearchResultProps } from "@/types/search/item/type";
 import { useSearchParams } from "next/navigation";
 import { useRecoilValue } from "recoil";
 import { SearchResultDto } from "@/types/search/dtos";
 import { SEARCH } from "@/constants/search";
 import { SearchData } from "@/types/search/common/type";
-interface SearchResultProps {
-  onItemClick: (item: SearchResultDto) => void;
-}
-const ItemResult: React.FC<SearchResultProps> = ({ onItemClick }) => {
+
+const ItemResult: React.FC<SearchResultProps> = ({
+  onItemClick,
+  setResultCount,
+}) => {
   const params = useSearchParams();
   const keyword = params.get(SEARCH.KEYWORD) ?? "";
   const searchType = params.get(SEARCH.SEARCH_TYPE) ?? "";
@@ -45,6 +46,12 @@ const ItemResult: React.FC<SearchResultProps> = ({ onItemClick }) => {
   );
 
   const { searchResult, isLoading, error } = useGetSearchResults(searchData);
+
+  useEffect(() => {
+    if (searchResult?.data) {
+      setResultCount(searchResult.data.length);
+    }
+  }, [searchResult, setResultCount]);
 
   if (isLoading) {
     return <div>검색중</div>;
