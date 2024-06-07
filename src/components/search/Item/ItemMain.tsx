@@ -41,6 +41,7 @@ export default function ItemMain() {
   const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "true";
   const sortOrder = params.get(SEARCH.SORT_ORDER) ?? 0;
   const mdLevel = params.get(SEARCH.MD_LEVEL) ?? 0;
+  const operatorCode = useRecoilValue(operatorCodeState) ?? "";
 
   const searchKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -65,8 +66,6 @@ export default function ItemMain() {
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
   };
-
-  const operatorCode = useRecoilValue(operatorCodeState) ?? "";
 
   const changeFilter = (key: keyof SearchItemState, value: any): void => {
     setSearchItemState((prevState) => ({
