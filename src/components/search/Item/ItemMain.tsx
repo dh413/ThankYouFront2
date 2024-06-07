@@ -150,7 +150,7 @@ export default function ItemMain() {
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
       {isSearching && isLoading ? (
-        <div style={{ textAlign: "center", marginTop: "20px" }}>
+        <div className="text-center mt-3">
           <ClipLoader size={50} color={"#123abc"} loading={isLoading} />
         </div>
       ) : (
