@@ -60,9 +60,7 @@ export default function ItemMain() {
         isDirectDelivery: searchItemState.isDirectDelivery.toString(),
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
-
       setIsSearching(true);
-
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
   };
