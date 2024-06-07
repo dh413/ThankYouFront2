@@ -30,7 +30,7 @@ export default function ItemMain() {
     null
   );
   const [resultCount, setResultCount] = useState<number>(0);
-  const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
 
   const router = useRouter();
   const params = useSearchParams();
@@ -60,7 +60,7 @@ export default function ItemMain() {
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
 
-      setIsSearch(true);
+      setIsSearching(true);
 
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
@@ -110,7 +110,7 @@ export default function ItemMain() {
 
   const { searchResult, isLoading, errorMsg } = useGetSearchResults(
     searchData,
-    isSearch
+    isSearching
   );
 
   useEffect(() => {
@@ -129,7 +129,7 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
-    setIsSearch(true);
+    setIsSearching(true);
   }, [
     keyword,
     searchType,
@@ -152,7 +152,7 @@ export default function ItemMain() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      {isSearch && isLoading ? (
+      {isSearching && isLoading ? (
         <div style={{ textAlign: "center", marginTop: "20px" }}>
           <ClipLoader size={50} color={"#123abc"} loading={isLoading} />
         </div>

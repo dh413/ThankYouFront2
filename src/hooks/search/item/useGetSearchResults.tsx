@@ -3,7 +3,7 @@ import { SearchData } from "@/types/search/common/type";
 import { SearchResultDto } from "@/types/search/dtos";
 import { useState, useEffect, useCallback } from "react";
 
-const useGetSearchResults = (searchData: SearchData, isSearch: boolean) => {
+const useGetSearchResults = (searchData: SearchData, isSearching: boolean) => {
   const [searchResult, setSearchResult] = useState<SearchResultDto | null>(
     null
   );
@@ -11,7 +11,7 @@ const useGetSearchResults = (searchData: SearchData, isSearch: boolean) => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const fetchSearchResults = useCallback(async () => {
-    if (!isSearch) return;
+    if (!isSearching) return;
 
     try {
       setIsLoading(true);
