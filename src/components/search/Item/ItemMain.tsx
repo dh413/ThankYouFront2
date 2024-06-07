@@ -129,7 +129,6 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
-    console.log("여기탈텐데");
     setIsSearch(true);
   }, [
     keyword,
@@ -158,11 +157,18 @@ export default function ItemMain() {
           <ClipLoader size={50} color={"#123abc"} loading={isLoading} />
         </div>
       ) : (
-        <ItemResult
-          searchResult={searchResult}
-          errorMsg={errorMsg}
-          clickItemInfo={clickItemInfo}
-        />
+        <>
+          {searchResult && searchResult.data && searchResult.data.length > 0 ? (
+            <ItemResult
+              searchResult={searchResult}
+              clickItemInfo={clickItemInfo}
+            />
+          ) : (
+            <div className="text-center mt-3">
+              {errorMsg ?? "검색결과 없음"}
+            </div>
+          )}
+        </>
       )}
       <ItemFooter selectedItem={selectedItem} resultCount={resultCount} />
     </>

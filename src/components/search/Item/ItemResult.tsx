@@ -11,12 +11,7 @@ import { SearchData } from "@/types/search/common/type";
 const ItemResult: React.FC<SearchResultProps> = ({
   clickItemInfo,
   searchResult,
-  errorMsg,
 }) => {
-  if (errorMsg) {
-    console.log(errorMsg);
-    return false;
-  }
   if (!searchResult?.data.length) {
     console.log("검색결과값 없음");
     return null;

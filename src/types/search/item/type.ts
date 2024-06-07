@@ -115,7 +115,6 @@ export const COLUMN_TITLES: { [key: string]: string } = {
 export interface SearchResultProps {
   clickItemInfo: (item: SearchResultDto) => void;
   searchResult: SearchResultDto | null;
-  errorMsg: string | null;
 }
 export interface ItemFooterProps {
   selectedItem: SearchResultDto | null;
