@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Itemfilter from "@/components/search/Item/ItemFilter";
 import ItemFooter from "@/components/search/Item/ItemFooter";
 import ItemResult from "@/components/search/Item/ItemResult";
@@ -10,6 +10,11 @@ import SearchText from "@/components/search/SearchText";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SEARCH } from "@/constants/search";
 import { SearchResultDto } from "@/types/search/dtos";
+import useGetSearchResults from "@/hooks/search/item/useGetSearchResults";
+import { useRecoilValue } from "recoil";
+import { operatorCodeState } from "@/recoil/search";
+import { SearchData } from "@/types/search/common/type";
+import { ClipLoader } from "react-spinners";
 
 export default function ItemMain() {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -26,6 +31,7 @@ export default function ItemMain() {
   );
   const [resultCount, setResultCount] = useState<number>(0);
 
+  const [isChangeParam, setIsChangeParam] = useState<boolean>(false);
   const router = useRouter();
   const params = useSearchParams();
   const keyword = params.get(SEARCH.KEYWORD) ?? "";
@@ -35,6 +41,7 @@ export default function ItemMain() {
   const isDirectDelivery = params.get(SEARCH.IS_DIRECT_DELIVERY) ?? "true";
   const sortOrder = params.get(SEARCH.SORT_ORDER) ?? 0;
   const mdLevel = params.get(SEARCH.MD_LEVEL) ?? 0;
+  const operatorCode = useRecoilValue(operatorCodeState) ?? "";
 
   const searchKeywordChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -53,7 +60,6 @@ export default function ItemMain() {
         isDirectDelivery: searchItemState.isDirectDelivery.toString(),
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
-
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
   };
@@ -75,6 +81,30 @@ export default function ItemMain() {
   const clickItemInfo = (item: SearchResultDto) => {
     setSelectedItem(item);
   };
+  const searchData: SearchData = useMemo(
+    () => ({
+      searchType: parseInt(searchType.toString(), 10),
+      operatorCode,
+      sortOrder: parseInt(sortOrder.toString(), 10),
+      branchType: parseInt(branchType.toString(), 10),
+      includeOutOfStock: includeOutOfStock.toString(),
+      mdLevel: parseInt(mdLevel.toString(), 10),
+      isDirectDelivery: isDirectDelivery.toString(),
+      searchValue: keyword,
+    }),
+    [
+      searchType,
+      operatorCode,
+      keyword,
+      sortOrder,
+      branchType,
+      includeOutOfStock,
+      mdLevel,
+      isDirectDelivery,
+    ]
+  );
+
+  const { searchResult, isLoading, errorMsg } = useGetSearchResults(searchData);
 
   useEffect(() => {
     setSearchedKeyword(keyword);
@@ -86,6 +116,16 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
+    setIsChangeParam(
+      !!(
+        keyword &&
+        includeOutOfStock &&
+        branchType &&
+        mdLevel &&
+        isDirectDelivery &&
+        sortOrder
+      )
+    );
   }, [
     keyword,
     searchType,
@@ -94,7 +134,14 @@ export default function ItemMain() {
     isDirectDelivery,
     sortOrder,
     mdLevel,
+    setIsChangeParam,
   ]);
+
+  useEffect(() => {
+    if (searchResult?.data) {
+      setResultCount(searchResult?.data.length);
+    }
+  }, [searchResult?.data]);
 
   return (
     <>
@@ -108,10 +155,29 @@ export default function ItemMain() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      <ItemResult
-        clickItemInfo={clickItemInfo}
-        setResultCount={setResultCount}
-      />
+      {isChangeParam && (
+        <>
+          {isLoading ? (
+            <div className="text-center mt-3">
+              <ClipLoader size={50} color="#123abc" loading={isLoading} />
+            </div>
+          ) : (
+            <>
+              {searchResult?.data.length ? (
+                <ItemResult
+                  searchResult={searchResult}
+                  clickItemInfo={clickItemInfo}
+                />
+              ) : (
+                <div className="text-center mt-3">
+                  {errorMsg ?? "검색결과가 없습니다."}
+                </div>
+              )}
+            </>
+          )}
+        </>
+      )}
+
       <ItemFooter selectedItem={selectedItem} resultCount={resultCount} />
     </>
   );

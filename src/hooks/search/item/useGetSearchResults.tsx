@@ -7,13 +7,14 @@ const useGetSearchResults = (searchData: SearchData) => {
   const [searchResult, setSearchResult] = useState<SearchResultDto | null>(
     null
   );
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const fetchSearchResults = useCallback(async () => {
     try {
       setIsLoading(true);
-      setError(null);
+      setErrorMsg(null);
 
       const response = await fetch(API_ROUTES.SEARCH_ITEM, {
         method: "POST",
@@ -28,9 +29,10 @@ const useGetSearchResults = (searchData: SearchData) => {
       }
 
       const data = await response.json();
+
       setSearchResult(data);
     } catch (error) {
-      setError("API에러");
+      setErrorMsg("API에러");
     } finally {
       setIsLoading(false);
     }
@@ -40,7 +42,7 @@ const useGetSearchResults = (searchData: SearchData) => {
     fetchSearchResults();
   }, [searchData, fetchSearchResults]);
 
-  return { searchResult, isLoading, error };
+  return { searchResult, isLoading, errorMsg };
 };
 
 export default useGetSearchResults;
