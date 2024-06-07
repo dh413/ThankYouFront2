@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Itemfilter from "@/components/search/Item/ItemFilter";
 import ItemFooter from "@/components/search/Item/ItemFooter";
 import ItemResult from "@/components/search/Item/ItemResult";
@@ -10,6 +10,11 @@ import SearchText from "@/components/search/SearchText";
 import { useRouter, useSearchParams } from "next/navigation";
 import { SEARCH } from "@/constants/search";
 import { SearchResultDto } from "@/types/search/dtos";
+import useGetSearchResults from "@/hooks/search/item/useGetSearchResults";
+import { useRecoilValue } from "recoil";
+import { operatorCodeState } from "@/recoil/search";
+import { SearchData } from "@/types/search/common/type";
+import { ClipLoader } from "react-spinners";
 
 export default function ItemMain() {
   const [searchedKeyword, setSearchedKeyword] = useState<string>("");
@@ -25,6 +30,7 @@ export default function ItemMain() {
     null
   );
   const [resultCount, setResultCount] = useState<number>(0);
+  const [isSearch, setIsSearch] = useState<boolean>(false);
 
   const router = useRouter();
   const params = useSearchParams();
@@ -54,9 +60,13 @@ export default function ItemMain() {
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
 
+      setIsSearch(true);
+
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
   };
+
+  const operatorCode = useRecoilValue(operatorCodeState) ?? "";
 
   const changeFilter = (key: keyof SearchItemState, value: any): void => {
     setSearchItemState((prevState) => ({
@@ -75,6 +85,39 @@ export default function ItemMain() {
   const clickItemInfo = (item: SearchResultDto) => {
     setSelectedItem(item);
   };
+  const searchData: SearchData = useMemo(
+    () => ({
+      searchType: parseInt(searchType.toString(), 10),
+      operatorCode,
+      sortOrder: parseInt(sortOrder.toString(), 10),
+      branchType: parseInt(branchType.toString(), 10),
+      includeOutOfStock: includeOutOfStock.toString(),
+      mdLevel: parseInt(mdLevel.toString(), 10),
+      isDirectDelivery: isDirectDelivery.toString(),
+      searchValue: keyword,
+    }),
+    [
+      searchType,
+      operatorCode,
+      keyword,
+      sortOrder,
+      branchType,
+      includeOutOfStock,
+      mdLevel,
+      isDirectDelivery,
+    ]
+  );
+
+  const { searchResult, isLoading, errorMsg } = useGetSearchResults(
+    searchData,
+    isSearch
+  );
+
+  useEffect(() => {
+    if (searchResult?.data) {
+      setResultCount(searchResult?.data.length);
+    }
+  }, [searchResult?.data]);
 
   useEffect(() => {
     setSearchedKeyword(keyword);
@@ -86,6 +129,8 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
+    console.log("여기탈텐데");
+    setIsSearch(true);
   }, [
     keyword,
     searchType,
@@ -108,10 +153,17 @@ export default function ItemMain() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-      <ItemResult
-        clickItemInfo={clickItemInfo}
-        setResultCount={setResultCount}
-      />
+      {isSearch && isLoading ? (
+        <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <ClipLoader size={50} color={"#123abc"} loading={isLoading} />
+        </div>
+      ) : (
+        <ItemResult
+          searchResult={searchResult}
+          errorMsg={errorMsg}
+          clickItemInfo={clickItemInfo}
+        />
+      )}
       <ItemFooter selectedItem={selectedItem} resultCount={resultCount} />
     </>
   );

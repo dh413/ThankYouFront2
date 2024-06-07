@@ -12,14 +12,13 @@ export interface RadioProps {
   selectedValue: number;
   onChange: (value: number) => void;
 }
-
 export interface SearchData {
   searchValue: string;
-  searchType: string;
+  searchType: number;
   operatorCode: string;
-  sortOrder: string;
-  branchType: string;
+  sortOrder: number;
+  branchType: number;
   includeOutOfStock: string;
-  mdLevel: string;
+  mdLevel: number;
   isDirectDelivery: string;
 }
