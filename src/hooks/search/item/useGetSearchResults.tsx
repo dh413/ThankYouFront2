@@ -11,7 +11,9 @@ const useGetSearchResults = (searchData: SearchData, isSearching: boolean) => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const fetchSearchResults = useCallback(async () => {
-    if (!isSearching) return;
+    if (!isSearching) {
+      return;
+    }
 
     try {
       setIsLoading(true);
