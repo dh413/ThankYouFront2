@@ -3,18 +3,15 @@ import { SearchData } from "@/types/search/common/type";
 import { SearchResultDto } from "@/types/search/dtos";
 import { useState, useEffect, useCallback } from "react";
 
-const useGetSearchResults = (searchData: SearchData, isSearching: boolean) => {
+const useGetSearchResults = (searchData: SearchData) => {
   const [searchResult, setSearchResult] = useState<SearchResultDto | null>(
     null
   );
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   const fetchSearchResults = useCallback(async () => {
-    if (!isSearching) {
-      return;
-    }
-
     try {
       setIsLoading(true);
       setErrorMsg(null);
@@ -32,13 +29,14 @@ const useGetSearchResults = (searchData: SearchData, isSearching: boolean) => {
       }
 
       const data = await response.json();
+
       setSearchResult(data);
     } catch (error) {
       setErrorMsg("API에러");
     } finally {
       setIsLoading(false);
     }
-  }, [searchData, isSearching]);
+  }, [searchData]);
 
   useEffect(() => {
     fetchSearchResults();

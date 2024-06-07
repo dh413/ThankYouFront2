@@ -30,8 +30,8 @@ export default function ItemMain() {
     null
   );
   const [resultCount, setResultCount] = useState<number>(0);
-  const [isSearching, setIsSearching] = useState<boolean>(false);
 
+  const [isChangeParam, setIsChangeParam] = useState<boolean>(false);
   const router = useRouter();
   const params = useSearchParams();
   const keyword = params.get(SEARCH.KEYWORD) ?? "";
@@ -60,7 +60,6 @@ export default function ItemMain() {
         isDirectDelivery: searchItemState.isDirectDelivery.toString(),
         sortOrder: searchItemState.sortOrder.toString(),
       }).toString();
-      setIsSearching(true);
       router.push(`${SEARCH_ROUTES.URL.ITEM}?${query}`);
     }
   };
@@ -105,16 +104,7 @@ export default function ItemMain() {
     ]
   );
 
-  const { searchResult, isLoading, errorMsg } = useGetSearchResults(
-    searchData,
-    isSearching
-  );
-
-  useEffect(() => {
-    if (searchResult?.data) {
-      setResultCount(searchResult?.data.length);
-    }
-  }, [searchResult?.data]);
+  const { searchResult, isLoading, errorMsg } = useGetSearchResults(searchData);
 
   useEffect(() => {
     setSearchedKeyword(keyword);
@@ -126,7 +116,7 @@ export default function ItemMain() {
       isDirectDelivery: isDirectDelivery === "true",
       sortOrder: sortOrder ? parseInt(sortOrder, 10) : 0,
     });
-    setIsSearching(
+    setIsChangeParam(
       !!(
         keyword &&
         includeOutOfStock &&
@@ -144,7 +134,14 @@ export default function ItemMain() {
     isDirectDelivery,
     sortOrder,
     mdLevel,
+    setIsChangeParam,
   ]);
+
+  useEffect(() => {
+    if (searchResult?.data) {
+      setResultCount(searchResult?.data.length);
+    }
+  }, [searchResult?.data]);
 
   return (
     <>
@@ -158,31 +155,29 @@ export default function ItemMain() {
         changeFilter={changeFilter}
         changeCheckBoxFilter={changeCheckBoxFilter}
       />
-
-      {isSearching && (
+      {isChangeParam && (
         <>
-          {isSearching && isLoading ? (
+          {isLoading ? (
             <div className="text-center mt-3">
               <ClipLoader size={50} color="#123abc" loading={isLoading} />
             </div>
           ) : (
             <>
-              {searchResult &&
-              searchResult.data &&
-              searchResult.data.length > 0 ? (
+              {searchResult?.data.length ? (
                 <ItemResult
                   searchResult={searchResult}
                   clickItemInfo={clickItemInfo}
                 />
               ) : (
                 <div className="text-center mt-3">
-                  {errorMsg ?? "검색결과 없음"}
+                  {errorMsg ?? "검색결과가 없습니다."}
                 </div>
               )}
             </>
           )}
         </>
       )}
+
       <ItemFooter selectedItem={selectedItem} resultCount={resultCount} />
     </>
   );
