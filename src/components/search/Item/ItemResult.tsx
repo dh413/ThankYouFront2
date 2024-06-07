@@ -1,22 +1,10 @@
-import { useEffect, useMemo } from "react";
-import useGetSearchResults from "@/hooks/search/item/useGetSearchResults";
-import { operatorCodeState } from "@/recoil/search";
 import { COLUMN_TITLES, SearchResultProps } from "@/types/search/item/type";
-import { useSearchParams } from "next/navigation";
-import { useRecoilValue } from "recoil";
 import { SearchResultDto } from "@/types/search/dtos";
-import { SEARCH } from "@/constants/search";
-import { SearchData } from "@/types/search/common/type";
 
 const ItemResult: React.FC<SearchResultProps> = ({
   clickItemInfo,
   searchResult,
 }) => {
-  if (!searchResult?.data.length) {
-    console.log("검색결과값 없음");
-    return null;
-  }
-
   return (
     <div>
       <div className="d-flex bg-light p-2">
