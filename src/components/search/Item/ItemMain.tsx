@@ -163,7 +163,7 @@ export default function ItemMain() {
         <>
           {isSearching && isLoading ? (
             <div className="text-center mt-3">
-              <ClipLoader size="50" color="#123abc" loading={isLoading} />
+              <ClipLoader size={50} color="#123abc" loading={isLoading} />
             </div>
           ) : (
             <>
